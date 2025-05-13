@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,17 @@ namespace OLX_copy.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // у даному методі налаштовується підключення до БД
 
-            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=OLX;uid=root;password=INnoVation");
-            optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            // дістаємось конфігурації 
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            // зазначаємо рядок підключення і тип драйвера (SqlServer)
+            optionsBuilder.UseSqlServer(
+                config.GetConnectionString("LocalDb")
+            );
         }
 
 
