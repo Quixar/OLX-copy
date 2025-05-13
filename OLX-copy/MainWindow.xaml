@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OLX_copy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="OLX Copy" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <!-- Верхняя панель -->
+        <DockPanel LastChildFill="True">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#FFEEEEEE" Height="50">
+                <Button Content="Search" Margin="10,10,0,10" Padding="10,5"/>
+                <Button Content="Account" Margin="10,10,0,10" Padding="10,5"/>
+                <Button Content="Add item" Margin="10,10,0,10" Padding="10,5"/>
+            </StackPanel>
+            <Grid Background="White">
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
