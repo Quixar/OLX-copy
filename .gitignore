@@ -362,7 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-#App settings file 
-appsettings.json
 
-DataContextModelSnapshot.cs
+#App settings file 
+OLX-copy/appsettings.json
+
+OLX-copy/Migrations/
