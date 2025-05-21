@@ -26,19 +26,23 @@ namespace OLX_copy.Data
         {
             // у даному методі налаштовується підключення до БД
 
-            // дістаємось конфігурації 
             IConfigurationRoot config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            // зазначаємо рядок підключення і тип драйвера (SqlServer)
-            optionsBuilder.UseSqlServer(
+            string provider = config["DatabaseProvider"];
 
-                config.GetConnectionString("LocalDb")
-
-                config.GetConnectionString("LocalDb")
-
-            );
+            if (provider == "MySql")
+            {
+                var connStr = config.GetConnectionString("MySql");
+                var connection = new MySqlConnection(connStr);
+                optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            }
+            else if (provider == "SqlServer")
+            {
+                var connStr = config.GetConnectionString("SqlServer");
+                optionsBuilder.UseSqlServer(connStr);
+            }
         }
 
 
@@ -95,14 +99,28 @@ namespace OLX_copy.Data
                 .HasOne(ua => ua.UserRole)
                 .WithMany(ur => ur.UserAccesses)
                 .HasForeignKey(ua => ua.RoleId);
-
+                
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.User)
                 .WithMany(u => u.Products)
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //SeedData(modelBuilder);
+            SeedData(modelBuilder);
+        }
+
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole 
+                {   Id = "user", 
+                    Description = "Self registred user",
+                    CanCreate = true,
+                    CanRead = true,
+                    CanUpdate = true,
+                    CanDelete = true
+                }
+            );
         }
     }
 }
