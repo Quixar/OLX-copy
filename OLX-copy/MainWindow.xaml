@@ -13,6 +13,7 @@
                 <Button Content="Search" Margin="10,10,0,10" Padding="10,5"/>
                 <Button Content="Account" Margin="10,10,0,10" Padding="10,5"/>
                 <Button Content="Add item" Margin="10,10,0,10" Padding="10,5"/>
+                <Button Content="Мої оголошення" Margin="10,10,0,10" Click="OpenProductManager_Click"/>
             </StackPanel>
             <Grid Background="White">
             </Grid>

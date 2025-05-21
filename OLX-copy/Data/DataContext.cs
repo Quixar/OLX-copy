@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
+using OLX_copy.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,15 +33,20 @@ namespace OLX_copy.Data
 
             // зазначаємо рядок підключення і тип драйвера (SqlServer)
             optionsBuilder.UseSqlServer(
+
                 config.GetConnectionString("LocalDb")
+
+                config.GetConnectionString("LocalDb")
+
             );
         }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Entities.ItemImage>()
-                .HasKey(i => new { i.ItemId, i.ImageUrl });
+            modelBuilder.Entity<ItemImage>()
+                .HasIndex(i => new { i.ItemId, i.ImageUrl })
+                .IsUnique();
 
             modelBuilder.Entity<Entities.Product>()
                 .HasIndex(p => p.Slug)
@@ -58,13 +64,15 @@ namespace OLX_copy.Data
                 .HasMany(p => p.Images)
                 .WithOne()
                 .HasPrincipalKey(p => p.Id)
-                .HasForeignKey(i => i.ItemId);
+                .HasForeignKey(i => i.ItemId)
+                .OnDelete(DeleteBehavior.Cascade); // пусть удаляется с Product
 
             modelBuilder.Entity<Entities.ProductGroup>()
                 .HasMany(p => p.Images)
                 .WithOne()
                 .HasPrincipalKey(p => p.Id)
-                .HasForeignKey(i => i.ItemId);
+                .HasForeignKey(i => i.ItemId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Entities.ProductGroup>()
                 .HasOne(pg => pg.ParentGroup)
@@ -87,6 +95,12 @@ namespace OLX_copy.Data
                 .HasOne(ua => ua.UserRole)
                 .WithMany(ur => ur.UserAccesses)
                 .HasForeignKey(ua => ua.RoleId);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Products)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             //SeedData(modelBuilder);
         }
