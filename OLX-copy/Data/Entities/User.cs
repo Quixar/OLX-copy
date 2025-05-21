@@ -16,5 +16,7 @@ namespace OLX_copy.Data.Entities
         public DateTime? DeletedAt { get; set; }
         public List<UserAccess> UserAccesses { get; set; } = [];
 
+        public List<Product> Products { get; set; } = [];
+
     }
 }

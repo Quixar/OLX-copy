@@ -25,5 +25,8 @@ namespace OLX_copy.Data.Entities
 
         public ProductGroup ProductGroup { get; set; } = null!;
         public List<ItemImage> Images { get; set; } = [];
+
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
     }
 }

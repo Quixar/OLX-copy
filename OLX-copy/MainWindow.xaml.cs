@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using OLX_copy.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,5 +21,14 @@ namespace OLX_copy
         {
             InitializeComponent();
         }
+
+        private void OpenProductManager_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new ProductManagementWindow();
+            window.Show();
+        }
+
     }
+
+
 }
