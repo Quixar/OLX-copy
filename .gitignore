@@ -365,4 +365,4 @@ FodyWeavers.xsd
 #App settings file 
 appsettings.json
 
-DataContextModelSnapshot.cs
+Migrations/
