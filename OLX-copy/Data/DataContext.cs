@@ -33,7 +33,11 @@ namespace OLX_copy.Data
 
             // зазначаємо рядок підключення і тип драйвера (SqlServer)
             optionsBuilder.UseSqlServer(
-                config.GetConnectionString("LocalDB")
+
+                config.GetConnectionString("LocalDb")
+
+                config.GetConnectionString("LocalDb")
+
             );
         }
 
