@@ -31,35 +31,55 @@ namespace OLX_copy
             this.Close();
         }
 
-        private void LoginButton_MouseDown(object sender, MouseButtonEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string username = UsernameTextBox.Text;
-            string password = PasswordBox.Password;
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            try
             {
-                MessageBox.Show("Please enter both username and password.");
-                return;
+
+                string username = UsernameTextBox.Text;
+                string password = PasswordBox.Password;
+
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Please enter both username and password.");
+                    return;
+                }
+
+                using var context = new Data.DataContext();
+
+                var userAccess = context.UserAccesses
+                    .Include(ua => ua.User)
+                    .FirstOrDefault(u => u.Login == username);
+
+                if (userAccess == null)
+                {
+                    MessageBox.Show("Invalid username or password.");
+                    return;
+                }
+
+                bool isPasswordValid = PasswordHasher.VerifyPassword(password, userAccess.Salt, userAccess.Dk);
+
+                if (!isPasswordValid)
+                {
+                    MessageBox.Show("Invalid username or password.");
+                    return;
+                }
+
+                var mainMenuWindow = new MainMenuWindow();
+                mainMenuWindow.Show();
+                this.Close();
             }
-
-            using var context = new Data.DataContext();
-
-            var userAccess = context.UserAccesses
-                .Include(ua => ua.User)
-                .FirstOrDefault(u => u.Login == username);
-
-            if (userAccess == null)
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid username or password.");
-                return;
-            }
+                string errorMessage = ex.Message;
 
-            bool isPasswordValid = PasswordHasher.VerifyPassword(password, userAccess.Salt, userAccess.Dk);
+                if (ex.InnerException != null)
+                    errorMessage += "\nInner Exception: " + ex.InnerException.Message;
 
-            if (!isPasswordValid)
-            {
-                MessageBox.Show("Invalid username or password.");
-                return;
+                if (ex.InnerException?.InnerException != null)
+                    errorMessage += "\nDeepest: " + ex.InnerException.InnerException.Message;
+
+                MessageBox.Show($"Ошибка при регистрации: {errorMessage}");
             }
         }
 

@@ -41,7 +41,7 @@
                            IsHitTestVisible="False"/>
                 </Grid>
 
-                <Button Content="Login" Width="100" Height="30" HorizontalAlignment="Center" MouseDown="LoginButton_MouseDown"/>
+                <Button Content="Login" Width="100" Height="30" HorizontalAlignment="Center" Click="LoginButton_Click"/>
 
                 <TextBlock Text="Don't have an account?" Margin="0 20 0 0" HorizontalAlignment="Center"/>
                 <TextBlock Text="Register" Foreground="Blue" Cursor="Hand" HorizontalAlignment="Center"

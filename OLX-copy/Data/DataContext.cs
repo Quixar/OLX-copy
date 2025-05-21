@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using OLX_copy.Data.Entities;
 using System;
@@ -24,8 +25,23 @@ namespace OLX_copy.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=olx;uid=root;password=INnoVation");
-            optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string provider = config["DatabaseProvider"];
+
+            if (provider == "MySql")
+            {
+                var connStr = config.GetConnectionString("MySql");
+                var connection = new MySqlConnection(connStr);
+                optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            }
+            else if (provider == "SqlServer")
+            {
+                var connStr = config.GetConnectionString("SqlServer");
+                optionsBuilder.UseSqlServer(connStr);
+            }
         }
 
 
