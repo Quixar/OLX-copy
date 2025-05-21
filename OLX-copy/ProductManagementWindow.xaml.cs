@@ -32,19 +32,25 @@ namespace OLX_copy
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
+            var group = _context.ProductGroups.FirstOrDefault();
+            if (group == null)
+            {
+                MessageBox.Show("У базі немає жодної групи товарів. Створіть хоча б одну.");
+                return;
+            }
+
             var newProduct = new Product
             {
                 Id = Guid.NewGuid(),
                 Name = "Нове оголошення",
                 Price = 100,
                 Stock = 1,
-                GroupId = _context.ProductGroups.First().Id, // для прикладу
+                GroupId = group.Id,
                 UserId = _userId
             };
 
             _context.Products.Add(newProduct);
             _context.SaveChanges();
-            LoadProducts();
         }
 
         private void DeleteProduct_Click(object sender, RoutedEventArgs e)

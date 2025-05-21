@@ -36,8 +36,6 @@ namespace OLX_copy.Data
 
                 config.GetConnectionString("LocalDb")
 
-                config.GetConnectionString("LocalDb")
-
             );
         }
 
