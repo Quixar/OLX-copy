@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
+using OLX_copy.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace OLX_copy.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=OLX;uid=root;password=INnoVation");
+            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=olx;uid=root;password=INnoVation");
             optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
         }
 
@@ -79,7 +80,21 @@ namespace OLX_copy.Data
                 .WithMany(ur => ur.UserAccesses)
                 .HasForeignKey(ua => ua.RoleId);
 
-            //SeedData(modelBuilder);
+            SeedData(modelBuilder);
+        }
+
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole 
+                {   Id = "user", 
+                    Description = "Self registred user",
+                    CanCreate = true,
+                    CanRead = true,
+                    CanUpdate = true,
+                    CanDelete = true
+                }
+            );
         }
     }
 }
