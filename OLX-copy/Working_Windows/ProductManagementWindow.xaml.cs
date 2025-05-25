@@ -1,5 +1,6 @@
 ﻿using OLX_copy.Data;
 using OLX_copy.Data.Entities;
+using OLX_copy.Working_Windows;
 using System.Linq;
 using System.Windows;
 
@@ -32,25 +33,9 @@ namespace OLX_copy
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            var group = _context.ProductGroups.FirstOrDefault();
-            if (group == null)
-            {
-                MessageBox.Show("У базі немає жодної групи товарів. Створіть хоча б одну.");
-                return;
-            }
-
-            var newProduct = new Product
-            {
-                Id = Guid.NewGuid(),
-                Name = "Нове оголошення",
-                Price = 100,
-                Stock = 1,
-                GroupId = group.Id,
-                UserId = _userId
-            };
-
-            _context.Products.Add(newProduct);
-            _context.SaveChanges();
+            var createWindow = new ProductCreateWindow(_userId);
+            createWindow.ShowDialog();
+            LoadProducts(); // Після закриття форми — оновлюємо список
         }
 
         private void DeleteProduct_Click(object sender, RoutedEventArgs e)

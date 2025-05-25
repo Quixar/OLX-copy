@@ -9,6 +9,13 @@ namespace OLX_copy
     /// </summary>
     public partial class App : Application
     {
+        [STAThread]
+        public static void Main()
+        {
+            var app = new App();
+            var window = new LoginWindow(); // или MainWindow
+            app.Run(window);
+        }
     }
 
 }
