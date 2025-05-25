@@ -65,7 +65,7 @@ namespace OLX_copy
                     return;
                 }
 
-                var mainMenuWindow = new MainMenuWindow();
+                var mainMenuWindow = new MainWindow();
                 mainMenuWindow.Show();
                 this.Close();
             }
@@ -79,7 +79,7 @@ namespace OLX_copy
                 if (ex.InnerException?.InnerException != null)
                     errorMessage += "\nDeepest: " + ex.InnerException.InnerException.Message;
 
-                MessageBox.Show($"Ошибка при регистрации: {errorMessage}");
+                MessageBox.Show($"Registration error: {errorMessage}");
             }
         }
 

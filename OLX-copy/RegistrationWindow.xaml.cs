@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,6 +45,18 @@ namespace OLX_copy
                     return;
                 }
 
+                if (!IsValidEmail(email))
+                {
+                    MessageBox.Show("Invalid email format.");
+                    return;
+                }
+
+                if (password.Length < 6)
+                {
+                    MessageBox.Show("Password must be at least 6 characters long.");
+                    return;
+                }
+
                 using var context = new Data.DataContext();
 
                 if (context.UserAccesses.Any(u => u.Login == login))
@@ -80,7 +93,7 @@ namespace OLX_copy
 
                 MessageBox.Show("Registration successful!");
 
-                var mainMenuWindow = new MainMenuWindow();
+                var mainMenuWindow = new MainWindow();
                 mainMenuWindow.Show();
                 this.Close();
             }
@@ -96,6 +109,12 @@ namespace OLX_copy
 
                 MessageBox.Show($"Ошибка при регистрации: {errorMessage}");
             }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
