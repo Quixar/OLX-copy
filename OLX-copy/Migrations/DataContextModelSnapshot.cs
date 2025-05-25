@@ -21,16 +21,24 @@ namespace OLX_copy.Migrations
 
             modelBuilder.Entity("OLX_copy.Data.Entities.ItemImage", b =>
                 {
-                    b.Property<Guid>("ItemId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("char(36)");
 
                     b.Property<int?>("Order")
                         .HasColumnType("int");
 
-                    b.HasKey("ItemId", "ImageUrl");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId", "ImageUrl")
+                        .IsUnique();
 
                     b.ToTable("ItemImages");
                 });
@@ -66,12 +74,17 @@ namespace OLX_copy.Migrations
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
 
                     b.HasIndex("Slug")
                         .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -226,7 +239,7 @@ namespace OLX_copy.Migrations
                     b.HasOne("OLX_copy.Data.Entities.ProductGroup", null)
                         .WithMany("Images")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -238,7 +251,15 @@ namespace OLX_copy.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("OLX_copy.Data.Entities.User", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ProductGroup");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OLX_copy.Data.Entities.ProductGroup", b =>
@@ -283,6 +304,8 @@ namespace OLX_copy.Migrations
 
             modelBuilder.Entity("OLX_copy.Data.Entities.User", b =>
                 {
+                    b.Navigation("Products");
+
                     b.Navigation("UserAccesses");
                 });
 

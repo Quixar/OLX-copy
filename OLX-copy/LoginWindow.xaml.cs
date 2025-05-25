@@ -65,8 +65,8 @@ namespace OLX_copy
                     return;
                 }
 
-                var mainMenuWindow = new MainMenuWindow();
-                mainMenuWindow.Show();
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
                 this.Close();
             }
             catch (Exception ex)

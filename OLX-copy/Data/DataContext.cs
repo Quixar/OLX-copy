@@ -32,11 +32,18 @@ namespace OLX_copy.Data
 
             string provider = config["DatabaseProvider"];
 
-                config.GetConnectionString("LocalDb")
+            if (provider == "MySql")
+            {
+                var connStr = config.GetConnectionString("MySql");
+                var connection = new MySqlConnection(connStr);
+                optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            }
+            else if (provider == "SqlServer")
+            {
+                var connStr = config.GetConnectionString("SqlServer");
+                optionsBuilder.UseSqlServer(connStr);
+            }
 
-                config.GetConnectionString("LocalDb")
-
-            );
         }
 
 
