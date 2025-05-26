@@ -124,6 +124,16 @@ namespace OLX_copy.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("ProductGroups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0dc4a692-2137-4694-bcb3-684ed826b520"),
+                            Description = "Декоративні вироби, посуд з кольорового та прозорого скла",
+                            ImageUrl = "glass.jpg",
+                            Name = "Скло",
+                            Slug = "glass"
+                        });
                 });
 
             modelBuilder.Entity("OLX_copy.Data.Entities.User", b =>

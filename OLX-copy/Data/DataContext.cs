@@ -122,6 +122,16 @@ namespace OLX_copy.Data
                     CanDelete = true
                 }
             );
+
+            modelBuilder.Entity<ProductGroup>().HasData(
+            new ProductGroup
+            {
+                Id = Guid.Parse("0dc4a692-2137-4694-bcb3-684ed826b520"),
+                Name = "Скло",
+                Description = "Декоративні вироби, посуд з кольорового та прозорого скла",
+                Slug = "glass",
+                ImageUrl = "glass.jpg"
+            });
         }
     }
 }
