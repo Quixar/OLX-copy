@@ -1,0 +1,17 @@
+﻿<Window x:Class="OLX_copy.ProductManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:OLX_copy.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:ProductManagementViewModel}"
+        Title="Ad managment" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <Button Content="Add ad" Command="{Binding AddProductCommand}" Width="150" Margin="0,0,0,10"/>
+            <ListBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" DisplayMemberPath="Name" Height="300"/>
+            <Button Content="Delete" Command="{Binding DeleteProductsCommand}" Width="150" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

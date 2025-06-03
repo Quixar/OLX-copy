@@ -1,4 +1,6 @@
 ﻿using OLX_copy.Data;
+using OLX_copy.Services;
+using OLX_copy.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,18 +19,13 @@ namespace OLX_copy
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly CurrentUserService _currentUserService;
+        public MainWindow(CurrentUserService currentUserService)
         {
             InitializeComponent();
-        }
+            _currentUserService = currentUserService;
 
-        private void OpenProductManager_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new ProductManagementWindow();
-            window.Show();
+            DataContext = new MainViewModel(_currentUserService);
         }
-
     }
-
-
 }

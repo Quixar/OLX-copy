@@ -8,10 +8,6 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
 
-    <Window.DataContext>
-        <vm:LoginViewModel />
-    </Window.DataContext>
-
     <Grid Background="#f0f0f0">
         <Border Width="300" Padding="20" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Background="White"
                 HorizontalAlignment="Center" VerticalAlignment="Center">

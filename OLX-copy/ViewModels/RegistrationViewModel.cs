@@ -9,12 +9,15 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
+using OLX_copy.Services;
 
 namespace OLX_copy.ViewModels
 {
     public class RegistrationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private readonly CurrentUserService _currentUserService;
 
         private string _username;
         private string _password;
@@ -53,8 +56,9 @@ namespace OLX_copy.ViewModels
 
         public ICommand RegisterCommand { get; }
 
-        public RegistrationViewModel()
+        public RegistrationViewModel(CurrentUserService currentUserService)
         {
+            _currentUserService = currentUserService;
             RegisterCommand = new RelayCommand(Register);
         }
 
@@ -116,7 +120,10 @@ namespace OLX_copy.ViewModels
 
                 MessageBox.Show("Registration successful!");
 
-                var mainWindow = new MainWindow();
+                _currentUserService.CurrentUser = user;
+                _currentUserService.CurrentUserAccess = userAccess;
+
+                var mainWindow = new MainWindow(_currentUserService);
                 mainWindow.Show();
 
                 var loginWindow = Application.Current.Windows

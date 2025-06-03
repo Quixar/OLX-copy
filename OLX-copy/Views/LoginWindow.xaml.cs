@@ -1,15 +1,20 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using OLX_copy.Services;
 using OLX_copy.ViewModels;
 
 namespace OLX_copy
 {
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        private readonly CurrentUserService _currentUserService;
+        public LoginWindow(CurrentUserService currentUserService)
         {
             InitializeComponent();
+            _currentUserService = currentUserService;
+
+            DataContext = new LoginViewModel(_currentUserService);
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -29,7 +34,7 @@ namespace OLX_copy
 
         private void RegisterTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var registrationWindow = new RegistrationWindow();
+            var registrationWindow = new RegistrationWindow(_currentUserService);
             registrationWindow.Show();
             this.Close();
         }

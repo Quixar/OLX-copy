@@ -4,6 +4,8 @@ using System.Windows.Input;
 using OLX_copy.Data;
 using OLX_copy.Helpers;
 using Microsoft.EntityFrameworkCore;
+using OLX_copy.Data.Entities;
+using OLX_copy.Services;
 
 namespace OLX_copy.ViewModels
 {
@@ -11,8 +13,12 @@ namespace OLX_copy.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private readonly CurrentUserService _currentUserService;
+
         private string _username;
         private string _password;
+
+        public List<Product> Products { get; set; } = new();
 
         public string Username
         {
@@ -31,8 +37,9 @@ namespace OLX_copy.ViewModels
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(CurrentUserService currentUserService)
         {
+            _currentUserService = currentUserService;
             LoginCommand = new RelayCommand(Login);
         }
 
@@ -43,6 +50,7 @@ namespace OLX_copy.ViewModels
                 using var context = new DataContext();
                 var userAccess = context.UserAccesses
                     .Include(u => u.User)
+                    .Include(u => u.UserRole)
                     .FirstOrDefault(u => u.Login == Username);
 
                 if (userAccess == null || !PasswordHasher.VerifyPassword(Password, userAccess.Salt, userAccess.Dk))
@@ -51,7 +59,10 @@ namespace OLX_copy.ViewModels
                     return;
                 }
 
-                var mainWindow = new MainWindow();
+                _currentUserService.CurrentUser = userAccess.User;
+                _currentUserService.CurrentUserAccess = userAccess;
+
+                var mainWindow = new MainWindow(_currentUserService);
                 mainWindow.Show();
 
                 var loginWindow = Application.Current.Windows

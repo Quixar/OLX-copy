@@ -12,20 +12,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OLX_copy.Services;
 using OLX_copy.ViewModels;
 
 namespace OLX_copy
 {
     public partial class RegistrationWindow : Window
     {
-        public RegistrationWindow()
+        private readonly CurrentUserService _currentUserService;
+        public RegistrationWindow(CurrentUserService currentUserService)
         {
             InitializeComponent();
+            _currentUserService = currentUserService;
+            DataContext = new RegistrationViewModel(_currentUserService);
         }
 
         private void LoginTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow();
+            LoginWindow loginWindow = new LoginWindow(_currentUserService);
             loginWindow.Show();
 
             this.Close();
