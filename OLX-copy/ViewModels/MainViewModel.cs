@@ -21,7 +21,7 @@ namespace OLX_copy.ViewModels
 
         private void OpenProductManager(object parameter)
         {
-            var window = new ProductManagementWindow();
+            var window = new ProductManagementWindow(_currentUserService);
             window.Show();
         }
     }

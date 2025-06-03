@@ -1,5 +1,7 @@
 ﻿using OLX_copy.Data;
 using OLX_copy.Data.Entities;
+using OLX_copy.Services;
+using OLX_copy.ViewModels;
 using OLX_copy.Working_Windows;
 using System.Linq;
 using System.Windows;
@@ -8,19 +10,13 @@ namespace OLX_copy
 {
     public partial class ProductManagementWindow : Window
     {
-        private readonly DataContext _context = new();
-        private readonly Guid _userId; // сюди треба передавати ID користувача
+        private readonly CurrentUserService _currentUserService;
 
-        public ProductManagementWindow()
+        public ProductManagementWindow(CurrentUserService currentUserService)
         {
             InitializeComponent();
-        }
-
-        public ProductManagementWindow(Guid userId)
-        {
-            InitializeComponent();
-            _userId = userId;
-            DataContext = new OLX_copy.ViewModels.ProductManagementViewModel(_userId);
+            _currentUserService = currentUserService;
+            DataContext = new ProductManagementViewModel(currentUserService);
         }
 
     }

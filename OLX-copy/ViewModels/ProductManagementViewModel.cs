@@ -2,13 +2,12 @@
 using OLX_copy.Data;
 using OLX_copy.Data.Entities;
 using OLX_copy.Helpers;
+using OLX_copy.Services;
 using OLX_copy.Working_Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,46 +18,62 @@ namespace OLX_copy.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly DataContext _context;
-        private Guid _userId;
+        private readonly CurrentUserService _currentUserService;
+
         private List<Product> _products;
         private Product _selectedProduct;
-        public Product SelectedProduct { get => _selectedProduct; set { _selectedProduct = value; OnPropertyChanged(nameof(SelectedProduct)); } }
-        public List<Product> Products { get => _products; set { _products = value; OnPropertyChanged(nameof(Products)); } }
 
-        public Guid UserId
+        public Product SelectedProduct
         {
-            get => _userId;
-            set { _userId = value; OnPropertyChanged(nameof(UserId)); }
+            get => _selectedProduct;
+            set
+            {
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+            }
+        }
+
+        public List<Product> Products
+        {
+            get => _products;
+            set
+            {
+                _products = value;
+                OnPropertyChanged(nameof(Products));
+            }
         }
 
         public ICommand AddProductCommand { get; }
         public ICommand DeleteProductsCommand { get; }
 
-        public ProductManagementViewModel(Guid userId)
+        public ProductManagementViewModel(CurrentUserService currentUserService)
         {
             _context = new DataContext();
-            UserId = userId;
+            _currentUserService = currentUserService;
+
             AddProductCommand = new RelayCommand(AddProduct);
             DeleteProductsCommand = new RelayCommand(DeleteProduct);
+
             LoadProducts();
         }
 
         private void AddProduct(object obj)
         {
-            MessageBox.Show("WOrks");
-            var createWindow = new ProductCreateWindow(_userId);
+            var createWindow = new ProductCreateWindow(_currentUserService.CurrentUser.Id);
             createWindow.ShowDialog();
             LoadProducts();
         }
 
         private void LoadProducts()
         {
-            var products = _context.Products
-                .Where(p => p.UserId == _userId)
+            var userId = _currentUserService.CurrentUser.Id;
+
+            Products = _context.Products
+                .Where(p => p.UserId == userId)
                 .ToList();
         }
 
-        private void DeleteProduct(object ojb)
+        private void DeleteProduct(object obj)
         {
             if (SelectedProduct != null)
             {
