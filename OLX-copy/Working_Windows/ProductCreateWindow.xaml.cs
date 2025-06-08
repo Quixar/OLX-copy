@@ -67,6 +67,12 @@ namespace OLX_copy.Working_Windows
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(NameBox.Text))
+            {
+                MessageBox.Show("Введіть назву продукту.");
+                return;
+            }
+
             var product = new Product
             {
                 Id = Guid.NewGuid(),
@@ -84,10 +90,19 @@ namespace OLX_copy.Working_Windows
             int index = 0;
             foreach (var path in _selectedImagePaths)
             {
-                var fileName = $"{product.Id}_{index++}{System.IO.Path.GetExtension(path)}";
+                var fileName = $"{product.Id}_{index}{System.IO.Path.GetExtension(path)}";
                 var savePath = System.IO.Path.Combine("images", fileName);
-                Directory.CreateDirectory("images");
-                File.Copy(path, savePath, overwrite: true);
+
+                try
+                {
+                    Directory.CreateDirectory("images");
+                    File.Copy(path, savePath, overwrite: true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Помилка при копіюванні файлу: {ex.Message}");
+                    return;
+                }
 
                 var image = new ItemImage
                 {
@@ -98,11 +113,29 @@ namespace OLX_copy.Working_Windows
                 };
 
                 _context.ItemImages.Add(image);
+                index++;
             }
 
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                StringBuilder sb = new();
+                Exception currentEx = ex;
+                while (currentEx != null)
+                {
+                    sb.AppendLine(currentEx.Message);
+                    currentEx = currentEx.InnerException;
+                }
+                MessageBox.Show($"Помилка при збереженні даних:\n{sb}");
+                return;
+            }
+
             MessageBox.Show("Оголошення створено.");
             Close();
         }
+
     }
 }

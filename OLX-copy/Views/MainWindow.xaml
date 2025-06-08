@@ -5,16 +5,241 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         Title="OLX Copy" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#FFEEEEEE" Height="50">
-                <Button Content="Search" Margin="10,10,0,10" Padding="10,5"/>
-                <Button Content="Account" Margin="10,10,0,10" Padding="10,5"/>
-                <Button Content="Add item" Margin="10,10,0,10" Padding="10,5"/>
-                <Button Content="Мої оголошення" Margin="10,10,0,10" Command="{Binding OpenProductManagerCommand}"/>
-            </StackPanel>
-            <Grid Background="White">
+    <DockPanel LastChildFill="True">
+
+        <!-- Подвал -->
+        <Border DockPanel.Dock="Bottom" Background="Black" Height="60">
+            <Grid>
+                <TextBlock Text="© 2025 OLX Courses. Все права защищены."
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="14"/>
             </Grid>
-        </DockPanel>
-    </Grid>
+        </Border>
+
+        <!-- Главное меню -->
+        <Menu DockPanel.Dock="Top" Background="#222" Foreground="White">
+            <MenuItem Header="🏠 Главная" Padding="10,5"/>
+            <MenuItem Header="📦 Категории" Padding="10,5"/>
+            <MenuItem Header="👤 Профиль" Padding="10,5"/>
+            <MenuItem Header="❤️ Избранное" Padding="10,5"/>
+            <MenuItem Header="🛒 Корзина" Padding="10,5"/>
+            <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>
+        </Menu>
+
+        <!-- Основной контент -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!-- Верхний логотип и поиск -->
+                <DockPanel Background="Black" Height="60" VerticalAlignment="Top" Margin="0,0,0,10">
+                    <TextBlock Text="OLX Courses"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="15,0"/>
+
+                    <TextBox Width="400"
+                             Height="28"
+                             Margin="20"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Text="Поиск товаров..."
+                             Foreground="Gray"/>
+                </DockPanel>
+
+                <!-- Кнопки категорий -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <Button Content="Електроніка" Margin="5" Padding="15,5" Background="#A084DC" Foreground="White"/>
+                    <Button Content="Одяг" Margin="5" Padding="15,5" Background="#A084DC" Foreground="White"/>
+                    <Button Content="Дім і сад" Margin="5" Padding="15,5" Background="#A084DC" Foreground="White"/>
+                    <Button Content="Транспорт" Margin="5" Padding="15,5" Background="#A084DC" Foreground="White"/>
+                </StackPanel>
+
+                <!-- Карточки товаров -->
+                <UniformGrid Columns="4" Rows="2" Margin="20" HorizontalAlignment="Center">
+
+                    <!-- Карточка 1 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Смартфон XYZ" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Бренд: ABC" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ★ ☆ (256)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="15 000 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 2 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Кросівки ABC" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Марка: XYZ" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ★ ☆ (180)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="5 500 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 3 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Садові меблі" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Виробник: QWE" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ☆ ☆ (75)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="12 300 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 4 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Велосипед MTB" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Бренд: Bianchi" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ★ ☆ (123)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="18 700 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 5 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Літня сукня" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Бренд: Fashion" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ★ ☆ (98)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="3 200 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 6 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Ноутбук Gamer" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Марка: Tech" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ★ ★ (300)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="45 000 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 7 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Мікрохвильовка" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Виробник: HomeTech" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ☆ ☆ (82)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="4 800 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Карточка 8 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <Rectangle Height="100" Fill="#DDD"/>
+                            <TextBlock Text="Пральна машина" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Бренд: LG" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="★ ★ ★ ★ ☆ (200)" FontSize="12" Foreground="Red"/>
+                            <TextBlock Text="13 400 ₴" FontWeight="Bold" Margin="5,0"/>
+                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+
+
+                </UniformGrid>
+                <!-- Слайдер / Баннер -->
+                <StackPanel Margin="0,10">
+                    <TextBlock Text="🔥 Гарячі пропозиції" 
+               FontSize="20" 
+               FontWeight="Bold" 
+               Margin="20,10" />
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Слайд 1 -->
+                            <Border Width="200" Height="150" Margin="10">
+                                <Image Source="images/ASSET_MMS_144667576__1_-removebg-preview.png" Stretch="Fill"/>
+                            </Border>
+
+                            <!-- Слайд 2 -->
+                            <Border Width="200" Height="150" Margin="10">
+                                <Image Source="images/ASSET_MMS_144667576__1_-removebg-preview.png" Stretch="Fill"/>
+                            </Border>
+
+                            <!-- Слайд 3 -->
+                            <Border Width="200" Height="150" Margin="10">
+                                <Image Source="images/ASSET_MMS_144667576__1_-removebg-preview.png" Stretch="Fill"/>
+                            </Border>
+                            <!-- Слайд 4 -->
+                            <Border Width="200" Height="150" Margin="10">
+                                <Image Source="images/ASSET_MMS_144667576__1_-removebg-preview.png" Stretch="Fill"/>
+                            </Border>
+                            <!-- Слайд 5 -->
+                            <Border Width="200" Height="150" Margin="10">
+                                <Image Source="images/ASSET_MMS_144667576__1_-removebg-preview.png" Stretch="Fill"/>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+
+                <!-- Щойно додано -->
+                <StackPanel Margin="0,20">
+                    <TextBlock Text="🆕 Щойно додано" 
+               FontSize="20" 
+               FontWeight="Bold" 
+               Margin="20,10" />
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Карточка 1 -->
+                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
+                                <StackPanel>
+                                    <Rectangle Height="80" Fill="#DDD"/>
+                                    <TextBlock Text="Новий товар 1" FontWeight="Bold" Margin="5,5,0,0"/>
+                                    <TextBlock Text="Категорія: A" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="9 999 ₴" FontWeight="Bold" Margin="5,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Карточка 2 -->
+                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
+                                <StackPanel>
+                                    <Rectangle Height="80" Fill="#DDD"/>
+                                    <TextBlock Text="Новий товар 2" FontWeight="Bold" Margin="5,5,0,0"/>
+                                    <TextBlock Text="Категорія: B" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="5 499 ₴" FontWeight="Bold" Margin="5,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Карточка 3 -->
+                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
+                                <StackPanel>
+                                    <Rectangle Height="80" Fill="#DDD"/>
+                                    <TextBlock Text="Новий товар 3" FontWeight="Bold" Margin="5,5,0,0"/>
+                                    <TextBlock Text="Категорія: C" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="1 999 ₴" FontWeight="Bold" Margin="5,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+
+            </StackPanel>
+
+
+        </ScrollViewer>
+    </DockPanel>
 </Window>
