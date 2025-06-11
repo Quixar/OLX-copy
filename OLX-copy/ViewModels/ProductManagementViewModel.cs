@@ -199,7 +199,7 @@ namespace OLX_copy.ViewModels
                 _context.ItemImages.Add(new ItemImage
                 {
                     Id = Guid.NewGuid(),
-                    ItemId = product.Id,
+                    ProductId = product.Id,
                     ImageUrl = savePath,
                     Order = i
                 });

@@ -18,7 +18,7 @@ namespace OLX_copy.Data.Entities
 
 
         public ProductGroup? ParentGroup { get; set; }
-        public List<Product> Products { get; set; } = [];
-        public List<ItemImage> Images { get; set; } = [];
+        public List<Product> Products { get; set; } = new();
+        public List<ItemImage> Images { get; set; } = new();
     }
 }

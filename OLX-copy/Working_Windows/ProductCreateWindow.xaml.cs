@@ -107,7 +107,7 @@ namespace OLX_copy.Working_Windows
                 var image = new ItemImage
                 {
                     Id = Guid.NewGuid(),
-                    ItemId = product.Id,
+                    ProductId = product.Id,
                     ImageUrl = savePath,
                     Order = index
                 };

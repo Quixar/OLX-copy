@@ -27,18 +27,22 @@ namespace OLX_copy.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("Order")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("ProductGroupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId", "ImageUrl")
-                        .IsUnique();
+                    b.HasIndex("ProductGroupId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ItemImages");
                 });
@@ -240,17 +244,19 @@ namespace OLX_copy.Migrations
 
             modelBuilder.Entity("OLX_copy.Data.Entities.ItemImage", b =>
                 {
-                    b.HasOne("OLX_copy.Data.Entities.Product", null)
+                    b.HasOne("OLX_copy.Data.Entities.ProductGroup", "ProductGroup")
                         .WithMany("Images")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("OLX_copy.Data.Entities.ProductGroup", null)
+                    b.HasOne("OLX_copy.Data.Entities.Product", "Product")
                         .WithMany("Images")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductGroup");
                 });
 
             modelBuilder.Entity("OLX_copy.Data.Entities.Product", b =>

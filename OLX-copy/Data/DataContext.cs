@@ -50,8 +50,17 @@ namespace OLX_copy.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ItemImage>()
-                .HasIndex(i => new { i.ItemId, i.ImageUrl })
-                .IsUnique();
+                .HasOne(ii => ii.Product)
+                .WithMany(p => p.Images)
+                .HasForeignKey(ii => ii.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // ProductGroup -> ItemImage
+            modelBuilder.Entity<ItemImage>()
+                .HasOne(ii => ii.ProductGroup)
+                .WithMany(pg => pg.Images)
+                .HasForeignKey(ii => ii.ProductGroupId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Entities.Product>()
                 .HasIndex(p => p.Slug)
@@ -65,18 +74,16 @@ namespace OLX_copy.Data
                 .WithMany(pg => pg.Products)
                 .HasForeignKey(p => p.GroupId);
 
-            modelBuilder.Entity<Entities.Product>()
+            modelBuilder.Entity<Product>()
                 .HasMany(p => p.Images)
-                .WithOne()
-                .HasPrincipalKey(p => p.Id)
-                .HasForeignKey(i => i.ItemId)
-                .OnDelete(DeleteBehavior.Cascade); // пусть удаляется с Product
+                .WithOne(ii => ii.Product)
+                .HasForeignKey(ii => ii.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Entities.ProductGroup>()
-                .HasMany(p => p.Images)
-                .WithOne()
-                .HasPrincipalKey(p => p.Id)
-                .HasForeignKey(i => i.ItemId)
+            modelBuilder.Entity<ProductGroup>()
+                .HasMany(pg => pg.Images)
+                .WithOne(ii => ii.ProductGroup)
+                .HasForeignKey(ii => ii.ProductGroupId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Entities.ProductGroup>()
