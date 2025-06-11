@@ -9,8 +9,8 @@ namespace OLX_copy.Services
 {
     public class CurrentUserService
     {
-        private User _currentUser;
-        private UserAccess _currentUserAccess;
+        private User _currentUser = null!;
+        private UserAccess _currentUserAccess = null!;
         public User CurrentUser
         {
             get => _currentUser;

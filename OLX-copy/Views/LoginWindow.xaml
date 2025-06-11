@@ -26,7 +26,7 @@
                 <Grid Margin="0,0,0,10">
                     <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Height="35"
                             Background="White" Foreground="Black" FontSize="14"/>
-                    <TextBlock x:Name="EmailWatermark" Text="Email"
+                    <TextBlock x:Name="EmailWatermark" Text="Login"
                             Foreground="Gray" FontSize="14"
                             VerticalAlignment="Center" Margin="10,0,0,0"
                             IsHitTestVisible="False"

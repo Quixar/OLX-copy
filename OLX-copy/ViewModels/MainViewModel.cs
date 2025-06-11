@@ -1,5 +1,6 @@
 ﻿using OLX_copy.Helpers;
 using OLX_copy.Services;
+using OLX_copy.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,16 @@ namespace OLX_copy.ViewModels
     public class MainViewModel
     {
         private readonly CurrentUserService _currentUserService;
-        public ICommand OpenProductManagerCommand { get; }
+        public ICommand OpenUserPageCommand { get; }
         public MainViewModel(CurrentUserService currentUserService)
         {
             _currentUserService = currentUserService;
-            OpenProductManagerCommand = new RelayCommand(OpenProductManager);
+            OpenUserPageCommand = new RelayCommand(OpenUserPage);
         }
 
-        private void OpenProductManager(object parameter)
+        private void OpenUserPage(object parameter)
         {
-            var window = new ProductManagementWindow(_currentUserService);
+            var window = new UserHomePage(_currentUserService);
             window.Show();
         }
     }
