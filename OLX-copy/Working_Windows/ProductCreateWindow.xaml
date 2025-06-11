@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OLX_copy.Working_Windows"
         mc:Ignorable="d"
         Title="ProductCreateWindow" Height="450" Width="800">
+
     <Grid Margin="10">
         <StackPanel>
             <!-- Название продукта -->
