@@ -41,13 +41,22 @@
                                VerticalAlignment="Center"
                                Margin="15,0"/>
 
-                    <TextBox Width="400"
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                        <TextBox Width="300"
                              Height="28"
-                             Margin="20"
                              VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Text="Поиск товаров..."
-                             Foreground="Gray"/>
+                             Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                             Foreground="Black"
+                             Background="White"
+                             Margin="0,0,10,0"
+                             />
+
+                        <Button Content="🔍 Пошук" 
+                            Command="{Binding SearchCommand}"
+                            Height="28"
+                            Background="#3399FF"
+                            Foreground="White"/>
+                    </StackPanel>
                 </DockPanel>
 
                 <!-- Кнопки категорий -->
