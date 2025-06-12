@@ -198,44 +198,36 @@
                 <!-- Щойно додано -->
                 <StackPanel Margin="0,20">
                     <TextBlock Text="🆕 Щойно додано" 
-               FontSize="20" 
-               FontWeight="Bold" 
-               Margin="20,10" />
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Margin="20,10" />
 
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <StackPanel Orientation="Horizontal">
-                            <!-- Карточка 1 -->
-                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
-                                <StackPanel>
-                                    <Rectangle Height="80" Fill="#DDD"/>
-                                    <TextBlock Text="Новий товар 1" FontWeight="Bold" Margin="5,5,0,0"/>
-                                    <TextBlock Text="Категорія: A" FontSize="12" Foreground="Gray"/>
-                                    <TextBlock Text="9 999 ₴" FontWeight="Bold" Margin="5,0"/>
-                                </StackPanel>
-                            </Border>
+                        <ItemsControl ItemsSource="{Binding LatestProducts}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                            <!-- Карточка 2 -->
-                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
-                                <StackPanel>
-                                    <Rectangle Height="80" Fill="#DDD"/>
-                                    <TextBlock Text="Новий товар 2" FontWeight="Bold" Margin="5,5,0,0"/>
-                                    <TextBlock Text="Категорія: B" FontSize="12" Foreground="Gray"/>
-                                    <TextBlock Text="5 499 ₴" FontWeight="Bold" Margin="5,0"/>
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Карточка 3 -->
-                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
-                                <StackPanel>
-                                    <Rectangle Height="80" Fill="#DDD"/>
-                                    <TextBlock Text="Новий товар 3" FontWeight="Bold" Margin="5,5,0,0"/>
-                                    <TextBlock Text="Категорія: C" FontSize="12" Foreground="Gray"/>
-                                    <TextBlock Text="1 999 ₴" FontWeight="Bold" Margin="5,0"/>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
+                                        <StackPanel>
+                                            <Image Height="80" 
+                                                   Source="{Binding MainImageUrl}" 
+                                                    Stretch="UniformToFill" />
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,5,0,0"/>
+                                            <TextBlock Text="{Binding ProductGroup.Name}" FontSize="12" Foreground="Gray"/>
+                                            <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontWeight="Bold" Margin="5,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
                 </StackPanel>
+
 
             </StackPanel>
 

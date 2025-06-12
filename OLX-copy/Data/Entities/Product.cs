@@ -20,8 +20,9 @@ namespace OLX_copy.Data.Entities
         public decimal Price { get; set; }
 
         public int Stock { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public DateTime? DeletedAt { get; set; }
 
         public ProductGroup ProductGroup { get; set; } = null!;
         public List<ItemImage> Images { get; set; } = new();

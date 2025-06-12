@@ -130,7 +130,7 @@
                             <WrapPanel Margin="0,0,0,10">
                                 <Button Content="Write a review" Background="#FFEB2EA8" Foreground="White" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
                                 <Button Content="Write a message" Background="#FFEB2EA8" Foreground="White" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
-                                <Button Content="Add to cart" Command="{Binding OpenProductManagmentCommand}" Background="White" BorderBrush="Gray" BorderThickness="1" Foreground="Black" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
+                                <Button Content="Add ad" Command="{Binding OpenProductManagmentCommand}" Background="White" BorderBrush="Gray" BorderThickness="1" Foreground="Black" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
                                 <Button Content="Remove" Background="White" BorderBrush="Gray" BorderThickness="1" Foreground="Black" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,0,5"/>
                             </WrapPanel>
 
