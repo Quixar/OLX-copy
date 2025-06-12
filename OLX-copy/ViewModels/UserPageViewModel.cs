@@ -23,7 +23,7 @@ namespace OLX_copy.ViewModels
 
         private void MyAdsOpen(object parametr)
         {
-            var window = new ProductManagementWindow(_currentUserService);
+            var window = new UserMyAdsPage(_currentUserService);
             window.Show();
         }
     }

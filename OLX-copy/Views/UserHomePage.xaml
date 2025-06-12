@@ -1,7 +1,8 @@
 ﻿<Window x:Class="OLX_copy.Views.UserHomePage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:OLX_copy.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:OLX_copy.ViewModels" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         Title="UserHomePage" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>

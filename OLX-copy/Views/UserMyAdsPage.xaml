@@ -1,10 +1,8 @@
 ﻿<Window x:Class="OLX_copy.Views.UserMyAdsPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:OLX_copy.ViewModels" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OLX_copy.Views"
-        mc:Ignorable="d"
         Title="UserMyAdsPage" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="FilterButtonStyle" TargetType="Button">
@@ -132,7 +130,7 @@
                             <WrapPanel Margin="0,0,0,10">
                                 <Button Content="Write a review" Background="#FFEB2EA8" Foreground="White" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
                                 <Button Content="Write a message" Background="#FFEB2EA8" Foreground="White" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
-                                <Button Content="Add to cart" Background="White" BorderBrush="Gray" BorderThickness="1" Foreground="Black" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
+                                <Button Content="Add to cart" Command="{Binding OpenProductManagmentCommand}" Background="White" BorderBrush="Gray" BorderThickness="1" Foreground="Black" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,10,5"/>
                                 <Button Content="Remove" Background="White" BorderBrush="Gray" BorderThickness="1" Foreground="Black" Style="{StaticResource RoundedButtonStyle}" Height="40" MinWidth="120" FontSize="16" Margin="0,0,0,5"/>
                             </WrapPanel>
 
@@ -146,29 +144,38 @@
                     </Border>
 
                     <!-- ORDER CARD -->
-                    <Border Background="#EFEFEF" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Padding="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="160"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="images/iphone.png" Width="100" Height="100" Margin="0,0,10,0" Grid.Column="0"/>
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Text="APPLE iPhone 13 128 GB Midnight Dual SIM" FontWeight="Bold" FontSize="14"/>
-                                <TextBlock Text="Black" FontSize="12" Foreground="Gray"/>
-                                <TextBlock Text="$595" FontSize="16" FontWeight="Bold" Margin="0,5,0,0"/>
-                                <TextBlock Text="Free returns · Delivery guarantee" FontSize="12" Foreground="Gray"/>
-                                <TextBlock Text="Order date: Dec 15, 2024" FontSize="10" Foreground="DarkGray"/>
-                                <TextBlock Text="Order ID: 3242527852383983" FontSize="10" Foreground="DarkGray"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                <Button Content="Check messages" Background="#FFEB2EA8" Foreground="White" Style="{StaticResource RoundedButtonStyle}"/>
-                                <Button Content="Edit" Style="{StaticResource RoundedButtonStyle}"/>
-                                <Button Content="Delete" Style="{StaticResource RoundedButtonStyle}"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Products}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#EFEFEF" CornerRadius="10" Padding="10" Margin="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="160"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Source="{Binding MainImageUrl}" Width="100" Height="100" Margin="0,0,10,0"/>
+
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
+                                                <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray" TextTrimming="CharacterEllipsis" MaxHeight="40"/>
+                                                <TextBlock Text="{Binding Price, StringFormat=₴{0:N2}}" FontSize="16" FontWeight="Bold" Margin="0,5,0,0"/>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                                <Button Content="Edit" Margin="0,0,0,5"/>
+                                                <Button Content="Delete" 
+                                                        Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                                        CommandParameter="{Binding}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

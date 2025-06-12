@@ -28,5 +28,24 @@ namespace OLX_copy.Data.Entities
 
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
+
+        [NotMapped]
+        public string? MainImageUrl
+        {
+            get
+            {
+                if (Images == null || Images.Count == 0)
+                    return null;
+
+                var relativePath = Images.OrderBy(img => img.Order).First().ImageUrl;
+
+                // Получаем абсолютный путь к проекту
+                string projectRoot = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
+
+                string absolutePath = System.IO.Path.Combine(projectRoot, relativePath);
+
+                return absolutePath;
+            }
+        }
     }
 }
