@@ -14,11 +14,19 @@ namespace OLX_copy.ViewModels
     {
         private readonly CurrentUserService _currentUserService;
         public ICommand MyAdsOpenCommand { get; }
+        public ICommand CustomizationCommand { get; }
 
         public UserPageViewModel(CurrentUserService currentUserService)
         {
             _currentUserService = currentUserService;
             MyAdsOpenCommand = new RelayCommand(MyAdsOpen);
+            CustomizationCommand = new RelayCommand(OpenCustomization);
+        }
+
+        private void OpenCustomization(object parameter)
+        {
+            var window = new UserCustomazationPage(_currentUserService);
+            window.Show();
         }
 
         private void MyAdsOpen(object parametr)

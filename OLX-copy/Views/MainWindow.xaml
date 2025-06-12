@@ -163,9 +163,9 @@
                 <!-- Слайдер / Баннер -->
                 <StackPanel Margin="0,10">
                     <TextBlock Text="🔥 Гарячі пропозиції" 
-               FontSize="20" 
-               FontWeight="Bold" 
-               Margin="20,10" />
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Margin="20,10" />
 
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                         <StackPanel Orientation="Horizontal">

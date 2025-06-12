@@ -92,7 +92,7 @@
                         <Button Content="My ads" Command="{Binding MyAdsOpenCommand}"/>
                         <Button Content="Favorites"/>
                         <Button Content="Messages"/>
-                        <Button Content="Customization"/>
+                        <Button Content="Customization" Command="{Binding CustomizationCommand}"/>
                     </StackPanel>
                 </Border>
             </Grid>
