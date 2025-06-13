@@ -91,33 +91,6 @@ namespace OLX_copy.ViewModels
             mainWindow?.Close();
         }
 
-        private bool _areSearchResultsVisible;
-
-        public bool AreSearchResultsVisible
-        {
-            get => _areSearchResultsVisible;
-            set
-            {
-                if (_areSearchResultsVisible != value)
-                {
-                    _areSearchResultsVisible = value;
-                    OnPropertyChanged(nameof(AreSearchResultsVisible));
-                }
-            }
-        }
-
-        private List<Product> _searchResults;
-        public List<Product> SearchResults
-        {
-            get => _searchResults;
-            set
-            {
-                _searchResults = value;
-                OnPropertyChanged(nameof(SearchResults));
-                OnPropertyChanged(nameof(AreSearchResultsVisible));
-            }
-        }
-
         private List<Product> _latestProducts;
         public List<Product> LatestProducts
         {
@@ -158,7 +131,7 @@ namespace OLX_copy.ViewModels
 
             if (string.IsNullOrWhiteSpace(query))
             {
-                SearchResults = null;
+                LoadRandomProducts();
                 return;
             }
 
@@ -170,11 +143,10 @@ namespace OLX_copy.ViewModels
                     p.Description.ToLower().Contains(query) ||
                     p.ProductGroup.Name.ToLower().Contains(query))
                 .OrderByDescending(p => p.CreatedAt)
-                .Take(10)
+                .Take(20)
                 .ToList();
 
-            SearchResults = results;
-            AreSearchResultsVisible = SearchResults.Any();
+            RandomProducts = results;
         }
 
         protected void OnPropertyChanged(string name) =>

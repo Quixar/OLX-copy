@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace OLX_copy.ViewModels
 {
@@ -17,17 +18,17 @@ namespace OLX_copy.ViewModels
         private string _selectedImageUrl;
         private int _quantity = 1;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public string Name { get; }
         public decimal Price { get; }
         public string Description { get; }
-        public ObservableCollection<string> Images { get; }
+        public List<string> Images { get; }
+        public ICommand BuyCommand { get; }
 
-        // Главное изображение
         public string MainImageUrl
         {
-            get => _selectedImageUrl ?? Images.FirstOrDefault();
+            get => _selectedImageUrl ?? Images.FirstOrDefault() ?? string.Empty;
             set
             {
                 if (_selectedImageUrl != value)
@@ -38,7 +39,6 @@ namespace OLX_copy.ViewModels
             }
         }
 
-        // Количество товара
         public int Quantity
         {
             get => _quantity;
@@ -60,12 +60,16 @@ namespace OLX_copy.ViewModels
             Price = product?.Price ?? 0m;
             Description = product?.Description ?? "No description";
 
-            // Гарантируем, что Images не null
-            Images = new ObservableCollection<string>(
-                product?.Images?.Select(i => i.ImageUrl).Where(url => !string.IsNullOrEmpty(url)) ?? new List<string>()
-            );
+            Images = product?.Images
+                .Select(img => img.ImageUrl)
+                .Where(url => !string.IsNullOrEmpty(url))
+                .ToList() ?? new List<string>();
 
-            _selectedImageUrl = Images.FirstOrDefault();
+            _selectedImageUrl = Images.FirstOrDefault() ?? string.Empty;
+        }
+
+        private void BuyProduct(object obj)
+        {
         }
 
         protected void OnPropertyChanged(string propName) =>

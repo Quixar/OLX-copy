@@ -28,6 +28,8 @@ namespace OLX_copy.ViewModels
             DeleteProductCommand = new RelayCommand(DeleteProduct);
             OpenProductManagmentCommand = new RelayCommand(OpenProductManagment);
             OpenCustomizationCommand = new RelayCommand(OpenCustomization);
+            OpenMainCommand = new RelayCommand(OpenMain);
+            OpenUserPageCommand = new RelayCommand(OpenUserPage);
 
             LoadProducts();
         }
@@ -49,6 +51,32 @@ namespace OLX_copy.ViewModels
         public ICommand DeleteProductCommand { get; }
         public ICommand OpenProductManagmentCommand { get; }
         public ICommand OpenCustomizationCommand { get; }
+        public ICommand OpenMainCommand { get; }
+        public ICommand OpenUserPageCommand { get; }
+
+        public void OpenUserPage(object obj)
+        {
+            var userPage = new UserHomePage(_currentUserService);
+            userPage.Show();
+
+            var userAdsWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is OLX_copy.Views.UserMyAdsPage);
+
+            userAdsWindow?.Close();
+        }
+
+        private void OpenMain(object obj)
+        {
+            var mainWindow = new MainWindow(_currentUserService);
+            mainWindow.Show();
+
+            var userAdsWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is OLX_copy.Views.UserMyAdsPage);
+
+            userAdsWindow?.Close();
+        }
 
         private void OpenCustomization(object obj)
         {

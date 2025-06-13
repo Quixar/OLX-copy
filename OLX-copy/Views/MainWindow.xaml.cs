@@ -27,18 +27,5 @@ namespace OLX_copy
 
             DataContext = new MainViewModel(_currentUserService);
         }
-        private void SearchElement_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                if (!SearchResultsListBox.IsFocused)
-                {
-                    if (DataContext is ViewModels.MainViewModel vm)
-                    {
-                        vm.AreSearchResultsVisible = false;
-                    }
-                }
-            }), System.Windows.Threading.DispatcherPriority.Background);
-        }
     }
 }

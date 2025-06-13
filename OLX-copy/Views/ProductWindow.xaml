@@ -9,7 +9,6 @@
         Title="ProductWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <!-- Стиль для закруглённой кнопки с заливкой -->
         <Style TargetType="Button" x:Key="RoundedButton">
             <Setter Property="Background" Value="#FF1493"/>
             <Setter Property="Foreground" Value="White"/>
@@ -19,10 +18,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="10" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -30,23 +26,6 @@
             </Setter>
         </Style>
 
-        <!-- Стиль для закруглённой кнопки с обводкой и прозрачным фоном -->
-        <Style TargetType="Button" x:Key="RoundedOutlineButton" BasedOn="{StaticResource RoundedButton}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#FF1493"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#FF1493"/>
-        </Style>
-
-        <!-- Стиль для закруглённой кнопки с серой обводкой -->
-        <Style TargetType="Button" x:Key="RoundedGrayOutlineButton" BasedOn="{StaticResource RoundedButton}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="Gray"/>
-        </Style>
-
-        <!-- Новый стиль для кнопок карусели с радиусом 15 -->
         <Style x:Key="CarouselButtonStyle" TargetType="Button">
             <Setter Property="Width" Value="30"/>
             <Setter Property="Height" Value="30"/>
@@ -62,20 +41,18 @@
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="15"
-                                SnapsToDevicePixels="True">
+                                CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
 
-        <!-- Подвал -->
+        <!-- Footer -->
         <Border DockPanel.Dock="Bottom" Background="Black" Height="60">
             <Grid>
                 <TextBlock Text="© 2025 OLX Courses. All rights reserved."
@@ -86,7 +63,7 @@
             </Grid>
         </Border>
 
-        <!-- Главное меню -->
+        <!-- Main Menu -->
         <Menu DockPanel.Dock="Top" Background="#222" Foreground="White">
             <MenuItem Header="🏠 Главная" Padding="10,5"/>
             <MenuItem Header="📦 Категории" Padding="10,5"/>
@@ -96,20 +73,21 @@
             <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>
         </Menu>
 
-        <!-- Хедер -->
+        <!-- Header with Logo and Search -->
         <Border DockPanel.Dock="Top" Background="Black" Height="60">
             <Grid VerticalAlignment="Center" Margin="20,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Логотип вместо текста -->
+                <!-- Logo -->
                 <Image Source="images/logo_for_OLX_copy-removebg-preview.png"
                        Width="200" Height="60" Margin="0,0,10,0"
                        VerticalAlignment="Center"
                        Grid.Column="0"/>
 
+                <!-- Search -->
                 <TextBox Width="400" Height="28"
                          Margin="20,0,0,0"
                          VerticalAlignment="Center"
@@ -119,7 +97,7 @@
             </Grid>
         </Border>
 
-        <!-- Основной контент -->
+        <!-- Main Content -->
         <ScrollViewer>
             <Grid>
                 <StackPanel Margin="20" HorizontalAlignment="Center" MaxWidth="1000">
@@ -130,52 +108,35 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Левая часть: изображение + карусель -->
+                        <!-- Photos -->
                         <StackPanel Grid.Column="0">
                             <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="5" Margin="0,0,0,10">
-                                <Image Source="{Binding MainImageUrl}" Height="300" Stretch="Uniform" />
+                                <Image Source="{Binding MainImageUrl}" Height="148" Stretch="Uniform" />
                             </Border>
 
-                            <!-- Карусель изображений (если есть Images) -->
+                            <!-- Карусель превью -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="⟨" Style="{StaticResource CarouselButtonStyle}"/>
+                                <Button Content="⟨" Style="{StaticResource CarouselButtonStyle}" />
                                 <ItemsControl ItemsSource="{Binding Images}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal"/>
+                                            <StackPanel Orientation="Horizontal" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding Url}" Height="40" Width="40" Margin="2"/>
+                                            <Image Source="{Binding}" Height="40" Width="40" Margin="2"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                                <Button Content="⟩" Style="{StaticResource CarouselButtonStyle}"/>
+                                <Button Content="⟩" Style="{StaticResource CarouselButtonStyle}" />
                             </StackPanel>
                         </StackPanel>
 
-                        <!-- Правая часть: описание + кнопки -->
+                        <!-- Name, Description, Quantity, Button -->
                         <StackPanel Grid.Column="1" Margin="30,0,0,0">
-                            <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontSize="18" FontWeight="Bold" Margin="0,0,0,5"/>
-                            <TextBlock Text="{Binding Name}" FontSize="22" FontWeight="Bold" Margin="0,0,0,5"/>
-                            <TextBlock Text="★★★★☆ 341 Reviews" FontSize="14" Foreground="Gold" Margin="0,0,0,10"/>
-
-                            <TextBlock Text="Select color" FontWeight="SemiBold" Margin="0,10,0,2"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <Ellipse Width="30" Height="30" Fill="Gold" Stroke="Black" StrokeThickness="1" Margin="5"/>
-                                <Ellipse Width="30" Height="30" Fill="Black" Stroke="Black" StrokeThickness="1" Margin="5"/>
-                                <Ellipse Width="30" Height="30" Fill="White" Stroke="Black" StrokeThickness="1" Margin="5"/>
-                            </StackPanel>
-
-                            <TextBlock Text="Capacity" FontWeight="SemiBold" Margin="0,10,0,2"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                <Button Height="25" Width="60" Content="256 GB" Padding="10,5" Margin="5" Style="{StaticResource RoundedOutlineButton}"/>
-                                <Button Height="25" Width="60" Content="512 GB" Padding="10,5" Margin="5" Style="{StaticResource RoundedOutlineButton}"/>
-                                <Button Height="25" Width="60" Content="1 TB" Padding="10,5" Margin="5" Style="{StaticResource RoundedOutlineButton}"/>
-                            </StackPanel>
-
-                            <TextBlock Text="Add to favorite ♥" FontSize="12" Foreground="Gray" Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding Name}" FontSize="22" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,20"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                 <TextBlock Text="Quantity:" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -185,70 +146,13 @@
                                     <ComboBoxItem Content="3"/>
                                 </ComboBox>
                             </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="0,5,0,0">
-                                <Button Height="30" Content="BUY NOW" Style="{StaticResource RoundedButton}" Margin="0,5,0,0"/>
-                                <Button Height="30" Content="ADD TO CART" Style="{StaticResource RoundedOutlineButton}" Margin="0,5,0,0"/>
-                                <Button Height="30" Content="WRITE TO SELLER" Style="{StaticResource RoundedGrayOutlineButton}" Margin="0,5,0,0"/>
-                            </StackPanel>
+
+                            <Button Height="30" Content="BUY NOW" Style="{StaticResource RoundedButton}" Margin="0,10,0,0"/>
                         </StackPanel>
                     </Grid>
 
-                    <!-- Описание -->
-                    <Expander Header="Product Description" Margin="0,10,0,0" IsExpanded="True">
-                        <TextBlock TextWrapping="Wrap" Margin="10" Text="{Binding Description}" />
-                    </Expander>
-
-                    <!-- Технические характеристики -->
-                    <Expander Header="Technical specifications" Margin="0,10,0,0" IsExpanded="False">
-                        <TextBlock TextWrapping="Wrap" Margin="10">
-                            <!-- Здесь можно добавить биндинг к техническим характеристикам, если они есть -->
-                            Specs include:
-                            - Processor: A18 Bionic
-                            - RAM: 8GB
-                            - Storage Options: 256GB, 512GB, 1TB
-                            - Display: 6.7" OLED Super Retina XDR
-                            - Camera: Triple 12MP system with LiDAR scanner
-                            - Battery Life: Up to 28 hours video playback
-                            - Operating System: iOS 19
-                        </TextBlock>
-                    </Expander>
-
-                    <!-- Отзывы и рейтинг -->
-                    <Expander Header="Reviews &amp; Rating" Margin="0,10,0,0" IsExpanded="False">
-                        <TextBlock TextWrapping="Wrap" Margin="10">
-                            Customers love the iPhone 16 Pro Max for its excellent performance and camera quality.
-                            Many praise the battery life and smooth user experience.
-                            Some users mention the premium design and display as key highlights.
-                            Overall rating: 4.8/5 based on 341 reviews.
-                        </TextBlock>
-                    </Expander>
-
-                    <!-- Отзывы -->
-                    <TextBlock Text="Customer Reviews" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"/>
-
-                    <!-- Пример отзыва 1 -->
-                    <Border BorderBrush="#ddd" BorderThickness="1" Padding="10" Margin="0,0,0,10" CornerRadius="5">
-                        <StackPanel>
-                            <TextBlock Text="★★★★★ Great phone, great value!" FontWeight="Bold"/>
-                            <TextBlock Text="Really impressed by the performance and design. Totally worth it." FontSize="12" TextWrapping="Wrap"/>
-                            <TextBlock Text="28.05.2025" FontSize="10" Foreground="Gray" HorizontalAlignment="Right"/>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- Пример отзыва 2 -->
-                    <Border BorderBrush="#ddd" BorderThickness="1" Padding="10" Margin="0,0,0,10" CornerRadius="5">
-                        <StackPanel>
-                            <TextBlock Text="★★★★★ Excellent camera and battery" FontWeight="Bold"/>
-                            <TextBlock Text="The phone has a fantastic screen and lasts all day. Highly recommend." FontSize="12" TextWrapping="Wrap"/>
-                            <TextBlock Text="11.05.2025" FontSize="10" Foreground="Gray" HorizontalAlignment="Right"/>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- Кнопка Добавить отзыв -->
-                    <Button Content="Add Review" Style="{StaticResource RoundedButton}" Width="120" Height="35" HorizontalAlignment="Left" Margin="0,10,0,0"/>
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-
     </DockPanel>
 </Window>

@@ -8,6 +8,7 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
+
     <DockPanel LastChildFill="True">
 
         <!-- Подвал -->
@@ -35,48 +36,29 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
-                <!-- Верхний логотип и поиск -->
+                <!-- Логотип и поиск -->
                 <DockPanel Background="Black" Height="Auto" VerticalAlignment="Top" Margin="0,0,0,10">
-                    <StackPanel Orientation="Vertical" Margin="15,10,15,10">
-
-                        <!-- Заголовок -->
+                    <StackPanel Orientation="Vertical" Margin="15,10,15,10" HorizontalAlignment="Left">
                         <TextBlock Text="OLX Courses"
                                    Foreground="White"
                                    FontWeight="Bold"
                                    FontSize="20"
                                    Margin="0,0,0,10"/>
 
-                        <!-- Поисковая строка + результат -->
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBox Width="300"
-                                         Height="28"
-                                         Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
-                                         Foreground="Black"
-                                         Background="White"
-                                         Margin="0,0,10,0"/>
-
-                                <Button Content="🔍 Пошук" 
-                                        Command="{Binding SearchCommand}"
-                                        Height="28"
-                                        Background="#3399FF"
-                                        Foreground="White"/>
-                            </StackPanel>
-
-                            <!-- Результаты поиска под полем -->
-
-                            <ListBox x:Name="SearchResultsListBox"
-                                     ItemsSource="{Binding SearchResults}"
-                                     DisplayMemberPath="Name"
-                                     Visibility="{Binding AreSearchResultsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                        <!-- Поиск -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox Width="300"
+                                     Height="28"
+                                     Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                                     Foreground="Black"
                                      Background="White"
-                                     Margin="20,5,0,0"
-                                     Width="410"
-                                     MaxHeight="200"
-                                     BorderBrush="Gray"
-                                     BorderThickness="1"
-                                     HorizontalAlignment="Left"
-                                     LostFocus="SearchElement_LostFocus" />
+                                     Margin="0,0,10,0"/>
+
+                            <Button Content="🔍 Пошук" 
+                                    Command="{Binding SearchCommand}"
+                                    Height="28"
+                                    Background="#3399FF"
+                                    Foreground="White"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -99,29 +81,31 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <!-- Карточки товаров -->
-                <ItemsControl ItemsSource="{Binding RandomProducts}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Margin="20" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10" Width="250" Height="Auto">
-                                <StackPanel>
-                                    <Image Source="{Binding MainImageUrl}" Height="150" Stretch="UniformToFill"/>
-                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,5,0,0"/>
-                                    <TextBlock Text="{Binding ProductGroup.Name}" FontSize="12" Foreground="Gray"/>
-                                    <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontWeight="Bold" Margin="5,0"/>
-                                    <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"
-                                            Command="{Binding DataContext.OpenProductCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            CommandParameter="{Binding}" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <!-- Результаты поиска или случайные товары -->
+                <StackPanel Margin="0,20">
+                    <ItemsControl ItemsSource="{Binding RandomProducts}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Margin="20" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10" Width="250" Height="Auto">
+                                    <StackPanel>
+                                        <Image Source="{Binding MainImageUrl}" Height="150" Stretch="UniformToFill"/>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,5,0,0"/>
+                                        <TextBlock Text="{Binding ProductGroup.Name}" FontSize="12" Foreground="Gray"/>
+                                        <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontWeight="Bold" Margin="5,0"/>
+                                        <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"
+                                                Command="{Binding DataContext.OpenProductCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
 
                 <!-- Щойно додано -->
                 <StackPanel Margin="0,20">
@@ -137,7 +121,6 @@
                                     <WrapPanel Margin="10" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Width="250" Padding="10">
@@ -157,7 +140,6 @@
                 </StackPanel>
 
             </StackPanel>
-
         </ScrollViewer>
     </DockPanel>
 </Window>

@@ -23,7 +23,7 @@
         <Menu Grid.Row="0" Background="#222" Foreground="White">
             <MenuItem Header="🏠 Главная" Padding="10,5" Command="{Binding OpenMainCommand}"/>
             <MenuItem Header="📦 Категории" Padding="10,5"/>
-            <MenuItem Header="👤 Профиль" Padding="10,5" Command="{Binding OpenUserPageCommand}"/>
+            <MenuItem Header="👤 Профиль" Padding="10,5" Command="{Binding UpdateWindowCommand}"/>
             <MenuItem Header="❤️ Избранное" Padding="10,5"/>
             <MenuItem Header="🛒 Корзина" Padding="10,5"/>
             <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>
