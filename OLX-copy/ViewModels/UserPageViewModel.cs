@@ -16,12 +16,24 @@ namespace OLX_copy.ViewModels
         private readonly CurrentUserService _currentUserService;
         public ICommand MyAdsOpenCommand { get; }
         public ICommand CustomizationCommand { get; }
+        public ICommand OpenMainCommand { get; }
 
         public UserPageViewModel(CurrentUserService currentUserService)
         {
             _currentUserService = currentUserService;
             MyAdsOpenCommand = new RelayCommand(MyAdsOpen);
             CustomizationCommand = new RelayCommand(OpenCustomization);
+            OpenMainCommand = new RelayCommand(OpenMainPage);
+        }
+
+        public void OpenMainPage(object parameter)
+        {
+            var window = new MainWindow(_currentUserService);
+            window.Show();
+            var userWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is OLX_copy.Views.UserHomePage);
+            userWindow?.Close();
         }
 
         private void OpenCustomization(object parameter)

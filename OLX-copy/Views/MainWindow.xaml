@@ -103,18 +103,20 @@
                 <ItemsControl ItemsSource="{Binding RandomProducts}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Columns="4" Rows="2" Margin="20"/>
+                            <WrapPanel Margin="20" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10">
+                            <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="10" Width="250" Height="Auto">
                                 <StackPanel>
-                                    <Image Source="{Binding MainImageUrl}" Height="100" Stretch="UniformToFill"/>
+                                    <Image Source="{Binding MainImageUrl}" Height="150" Stretch="UniformToFill"/>
                                     <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,5,0,0"/>
                                     <TextBlock Text="{Binding ProductGroup.Name}" FontSize="12" Foreground="Gray"/>
                                     <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontWeight="Bold" Margin="5,0"/>
-                                    <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"/>
+                                    <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"
+                                            Command="{Binding DataContext.OpenProductCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}" />
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -132,17 +134,17 @@
                         <ItemsControl ItemsSource="{Binding LatestProducts}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
+                                    <WrapPanel Margin="10" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Width="200" Padding="10">
+                                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5" Width="250" Padding="10">
                                         <StackPanel>
-                                            <Image Height="80" 
+                                            <Image Height="120" 
                                                    Source="{Binding MainImageUrl}" 
-                                                    Stretch="UniformToFill" />
+                                                   Stretch="UniformToFill" />
                                             <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,5,0,0"/>
                                             <TextBlock Text="{Binding ProductGroup.Name}" FontSize="12" Foreground="Gray"/>
                                             <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontWeight="Bold" Margin="5,0"/>
@@ -154,9 +156,7 @@
                     </ScrollViewer>
                 </StackPanel>
 
-
             </StackPanel>
-
 
         </ScrollViewer>
     </DockPanel>

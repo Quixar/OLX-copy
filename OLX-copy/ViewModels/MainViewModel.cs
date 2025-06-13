@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,7 @@ namespace OLX_copy.ViewModels
         public ICommand SearchCommand { get; }
         public ICommand FilterByCategoryCommand { get; }
         public ICommand UpdateWindowCommand { get; }
+        public ICommand OpenProductCommand { get; }
 
         public MainViewModel(CurrentUserService currentUserService)
         {
@@ -32,11 +34,27 @@ namespace OLX_copy.ViewModels
             OpenUserPageCommand = new RelayCommand(OpenUserPage);
             SearchCommand = new RelayCommand(ExecuteSearch);
             FilterByCategoryCommand = new RelayCommand(FilterByCategory);
-
             UpdateWindowCommand = new RelayCommand(UpdateWindow);
+            OpenProductCommand = new RelayCommand(OpenProduct);
+
             LoadLatestProducts();
             LoadRandomProducts();
             LoadProductGroups();
+        }
+
+        public void OpenProduct(object obj)
+        {
+            if (obj is Product product)
+            {
+                var productWindow = new ProductWindow(_currentUserService, product);
+                productWindow.Show();
+
+                var mainWindow = Application.Current.Windows
+                    .OfType<Window>()
+                    .FirstOrDefault(w => w is OLX_copy.MainWindow);
+
+                mainWindow?.Close();
+            }
         }
 
         public void UpdateWindow(object obj)
