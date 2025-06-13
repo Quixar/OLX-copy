@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:OLX_copy.ViewModels" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        Title="UserMyAdsPage" Height="450" Width="800">
+        Title="UserMyAdsPage" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FilterButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="30"/>
@@ -47,19 +48,34 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <!-- Меню -->
             <RowDefinition Height="60"/>
+            <!-- Header -->
             <RowDefinition Height="40"/>
+            <!-- Top navigation -->
             <RowDefinition Height="*"/>
+            <!-- Main content -->
             <RowDefinition Height="40"/>
+            <!-- Footer -->
         </Grid.RowDefinitions>
 
+        <!-- МЕНЮ -->
+        <Menu Grid.Row="0" Background="#222" Foreground="White">
+            <MenuItem Header="🏠 Главная" Padding="10,5"/>
+            <MenuItem Header="📦 Категории" Padding="10,5"/>
+            <MenuItem Header="👤 Профиль" Padding="10,5"/>
+            <MenuItem Header="❤️ Избранное" Padding="10,5"/>
+            <MenuItem Header="🛒 Корзина" Padding="10,5"/>
+            <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>
+        </Menu>
+
         <!-- HEADER -->
-        <DockPanel Background="Black" Grid.Row="0" LastChildFill="False">
+        <DockPanel Background="Black" Grid.Row="1" LastChildFill="False">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="50,0,0,0">
                 <TextBox x:Name="SearchBox" Width="250" Height="30" Margin="10,0"
                          VerticalAlignment="Center" Padding="5" FontSize="14"
                          Text="Search..." Foreground="Gray"/>
-                <!--GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus"-->
                 <Button Width="30" Height="30" Content="🔍"/>
             </StackPanel>
 
@@ -71,7 +87,7 @@
         </DockPanel>
 
         <!-- TOP NAVIGATION -->
-        <DockPanel Background="#FFEB2EA8" Grid.Row="1" Height="40" LastChildFill="False">
+        <DockPanel Background="#FFEB2EA8" Grid.Row="2" Height="40" LastChildFill="False">
             <Border Width="200" CornerRadius="5" Background="White" BorderBrush="Gray" BorderThickness="1" Height="30" 
                     VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0">
@@ -82,7 +98,7 @@
         </DockPanel>
 
         <!-- MAIN CONTENT -->
-        <Grid Grid.Row="2" Margin="15,10">
+        <Grid Grid.Row="3" Margin="15,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
@@ -116,7 +132,7 @@
                         <Button Content="My ads"/>
                         <Button Content="Favorites"/>
                         <Button Content="Messages"/>
-                        <Button Content="Customization"/>
+                        <Button Content="Customization" Command="{Binding OpenCustomizationCommand}"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -144,7 +160,7 @@
                     </Border>
 
                     <!-- ORDER CARD -->
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
                         <ItemsControl ItemsSource="{Binding Products}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -181,7 +197,7 @@
         </Grid>
 
         <!-- FOOTER -->
-        <DockPanel Grid.Row="3" Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" LastChildFill="True">
+        <DockPanel Grid.Row="4" Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" LastChildFill="True">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image Source="images/logo_for_OLX_copy-removebg-preview.png" Width="100" Height="30" Margin="15,0" VerticalAlignment="Center"/>
                 <TextBlock Text="© 2025 OLX Copy. All Rights Reserved."

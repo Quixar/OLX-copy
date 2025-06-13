@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Ad managment" Height="450" Width="800">
+        Title="Ad managment" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
 
         <!-- Подвал -->
@@ -23,7 +24,7 @@
         <Menu DockPanel.Dock="Top" Background="#222" Foreground="White">
             <MenuItem Header="🏠 Главная" Padding="10,5"/>
             <MenuItem Header="📦 Категории" Padding="10,5"/>
-            <MenuItem Header="👤 Профиль" Padding="10,5"/>
+            <MenuItem Header="👤 Профиль" Padding="10,5" Command="{Binding OpenUserPageCommand}"/>
             <MenuItem Header="❤️ Избранное" Padding="10,5"/>
             <MenuItem Header="🛒 Корзина" Padding="10,5"/>
             <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>

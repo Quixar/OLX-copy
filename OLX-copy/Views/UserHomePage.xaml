@@ -3,11 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:OLX_copy.ViewModels" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        Title="UserHomePage" Height="450" Width="800">
+        Title="UserHomePage" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <!-- Меню -->
             <RowDefinition Height="60"/>
-            <!-- Header -->
+            <!-- Header (логотип, поиск) -->
             <RowDefinition Height="40"/>
             <!-- Top nav -->
             <RowDefinition Height="*"/>
@@ -16,8 +19,18 @@
             <!-- Footer -->
         </Grid.RowDefinitions>
 
+        <!-- МЕНЮ -->
+        <Menu Grid.Row="0" Background="#222" Foreground="White">
+            <MenuItem Header="🏠 Главная" Padding="10,5"/>
+            <MenuItem Header="📦 Категории" Padding="10,5"/>
+            <MenuItem Header="👤 Профиль" Padding="10,5" Command="{Binding OpenUserPageCommand}"/>
+            <MenuItem Header="❤️ Избранное" Padding="10,5"/>
+            <MenuItem Header="🛒 Корзина" Padding="10,5"/>
+            <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>
+        </Menu>
+
         <!-- HEADER -->
-        <DockPanel Background="Black" Grid.Row="0" LastChildFill="False">
+        <DockPanel Background="Black" Grid.Row="1" LastChildFill="False">
             <Image Source="images/logo_for_OLX_copy-removebg-preview.png" Width="100" Height="40" Margin="15,0" VerticalAlignment="Center" />
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="50,0,0,0">
@@ -25,8 +38,6 @@
                      Width="250" Height="30" Margin="10,0"
                      VerticalAlignment="Center" Padding="5" FontSize="14"
                      Text="Search..." Foreground="Gray"/>
-                <!--GotFocus="SearchBox_GotFocus"-->
-                     <!--="SearchBox_LostFocus"-->
                 <Button Width="30" Height="30" Content="🔍"/>
             </StackPanel>
 
@@ -38,9 +49,9 @@
         </DockPanel>
 
         <!-- TOP NAVIGATION -->
-        <DockPanel Background="#FFEB2EA8" Grid.Row="1" Height="40" LastChildFill="False">
+        <DockPanel Background="#FFEB2EA8" Grid.Row="2" Height="40" LastChildFill="False">
             <Border Width="200" CornerRadius="5" Background="White" BorderBrush="Gray" BorderThickness="1" Height="30" 
-        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0">
                     <TextBlock Text="☰" FontSize="14" Margin="5,0" VerticalAlignment="Center"/>
                     <TextBlock Text="All Categories" FontSize="14" Margin="5,0" VerticalAlignment="Center"/>
@@ -48,20 +59,13 @@
             </Border>
         </DockPanel>
 
-
-
-
-
-
-
         <!-- MAIN CONTENT -->
-        <Grid Grid.Row="2" Margin="15,10">
+        <Grid Grid.Row="3" Margin="15,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
-                <!-- Sidebar -->
                 <ColumnDefinition Width="*"/>
-                <!-- Main block -->
             </Grid.ColumnDefinitions>
+
             <!-- SIDEBAR -->
             <Grid Grid.Column="0" Margin="0,10,10,10">
                 <Border Background="#FFEFEFEF" CornerRadius="15" Padding="10" BorderBrush="Gray" BorderThickness="1" VerticalAlignment="Top">
@@ -74,11 +78,11 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="15">
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="15">
                                                 <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
+                                                                  VerticalAlignment="Center"/>
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -97,11 +101,9 @@
                 </Border>
             </Grid>
 
-
-
             <!-- USER CONTENT -->
             <Border Grid.Column="1" Padding="20" BorderBrush="Gray" BorderThickness="1"
-    CornerRadius="15" Background="White" VerticalAlignment="Top">
+                    CornerRadius="15" Background="White" VerticalAlignment="Top">
                 <StackPanel>
                     <TextBlock Text="👤  Name User" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
                     <Grid>
@@ -128,14 +130,13 @@
                     </Grid>
                 </StackPanel>
             </Border>
-
         </Grid>
 
         <!-- FOOTER -->
-        <DockPanel Grid.Row="3" Background="Black" VerticalAlignment="Center">
+        <DockPanel Grid.Row="4" Background="Black" VerticalAlignment="Center">
             <TextBlock Text="© 2025 OLX Copy. All Rights Reserved."
-                   Foreground="White" VerticalAlignment="Center"
-                   HorizontalAlignment="Center" Width="Auto"/>
+                       Foreground="White" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" Width="Auto"/>
         </DockPanel>
     </Grid>
 </Window>

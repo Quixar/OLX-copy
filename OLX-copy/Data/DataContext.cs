@@ -139,6 +139,16 @@ namespace OLX_copy.Data
                 Slug = "glass",
                 ImageUrl = "glass.jpg"
             });
+
+            modelBuilder.Entity<ProductGroup>().HasData(
+            new ProductGroup
+            {
+                Id = Guid.Parse("019ed4f3-1e83-406a-abbf-80f22319f7ae"),
+                Name = "Електроніка",
+                Description = "Сучасна електроніка для дому, роботи та розваг: смартфони, ноутбуки, телевізори, гаджети та аксесуари ",
+                Slug = "electronics",
+                ImageUrl = "electronics.jpg"
+            });
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace OLX_copy.ViewModels
@@ -27,12 +28,24 @@ namespace OLX_copy.ViewModels
         {
             var window = new UserCustomazationPage(_currentUserService);
             window.Show();
+
+            var loginWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is OLX_copy.Views.UserHomePage);
+
+            loginWindow?.Close();
         }
 
         private void MyAdsOpen(object parametr)
         {
             var window = new UserMyAdsPage(_currentUserService);
             window.Show();
+
+            var loginWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is OLX_copy.Views.UserHomePage);
+
+            loginWindow?.Close();
         }
     }
 }

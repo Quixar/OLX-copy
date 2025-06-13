@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.Win32;
+using OLX_copy.Views;
 
 public class ProductManagementViewModel : INotifyPropertyChanged
 {
@@ -26,6 +27,7 @@ public class ProductManagementViewModel : INotifyPropertyChanged
 
         SelectedImagePaths = new List<string>();
         DisplayedImageNames = new List<string>();
+        OpenUserPageCommand = new RelayCommand(OpenUserPage);
         LoadGroups();
     }
 
@@ -171,6 +173,15 @@ public class ProductManagementViewModel : INotifyPropertyChanged
         {
             _context.SaveChanges();
             MessageBox.Show("Оголошення створено.");
+
+            var window = new UserMyAdsPage(_currentUserService);
+            window.Show();
+
+            var loginWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(w => w is OLX_copy.ProductManagementWindow);
+
+            loginWindow?.Close();
         }
         catch (Exception ex)
         {
@@ -183,6 +194,19 @@ public class ProductManagementViewModel : INotifyPropertyChanged
 
             MessageBox.Show($"Помилка при збереженні даних:\n{sb}");
         }
+    }
+
+    public ICommand OpenUserPageCommand;
+    private void OpenUserPage(object parameter)
+    {
+        var window = new UserHomePage(_currentUserService);
+        window.Show();
+
+        var mainWindow = Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(w => w is OLX_copy.ProductManagementWindow);
+
+        mainWindow?.Close();
     }
 
     private void OnPropertyChanged(string propertyName) =>

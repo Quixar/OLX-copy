@@ -140,6 +140,14 @@ namespace OLX_copy.Migrations
                             ImageUrl = "glass.jpg",
                             Name = "Скло",
                             Slug = "glass"
+                        },
+                        new
+                        {
+                            Id = new Guid("019ed4f3-1e83-406a-abbf-80f22319f7ae"),
+                            Description = "Сучасна електроніка для дому, роботи та розваг: смартфони, ноутбуки, телевізори, гаджети та аксесуари ",
+                            ImageUrl = "electronics.jpg",
+                            Name = "Електроніка",
+                            Slug = "electronics"
                         });
                 });
 
