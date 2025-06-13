@@ -1,4 +1,5 @@
-﻿using OLX_copy.Services;
+﻿using OLX_copy.Data;
+using OLX_copy.Services;
 using OLX_copy.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,10 @@ namespace OLX_copy.Views
     public partial class UserCustomazationPage : Window
     {
         private readonly CurrentUserService _currentUserService;
-        public UserCustomazationPage(CurrentUserService currentUserService)
+        public UserCustomazationPage(CurrentUserService currentUserService, DataContext dataContext)
         {
             _currentUserService = currentUserService;
-            DataContext = new UserCustomizationViewModel(_currentUserService);
+            DataContext = new UserCustomizationViewModel(_currentUserService, dataContext);
             InitializeComponent();
         }
     }

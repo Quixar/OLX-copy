@@ -1,4 +1,5 @@
-﻿using OLX_copy.Helpers;
+﻿using OLX_copy.Data;
+using OLX_copy.Helpers;
 using OLX_copy.Services;
 using OLX_copy.Views;
 using System;
@@ -38,7 +39,8 @@ namespace OLX_copy.ViewModels
 
         private void OpenCustomization(object parameter)
         {
-            var window = new UserCustomazationPage(_currentUserService);
+            var dataContext = new DataContext(); 
+            var window = new UserCustomazationPage(_currentUserService, dataContext);
             window.Show();
 
             var loginWindow = Application.Current.Windows

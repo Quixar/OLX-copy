@@ -147,24 +147,59 @@
             </Grid>
 
             <!-- CUSTOMIZATION FORM -->
-            <Border Grid.Column="1" Width="400" Background="#FFE0E0E0" CornerRadius="20" Padding="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0">
+            <Border Grid.Column="1" Width="400" Background="#FFE0E0E0" CornerRadius="20" Padding="20" 
+        HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0">
                 <StackPanel>
+                    <!-- Name -->
                     <TextBlock Text="Name *" FontWeight="Bold" Margin="5,5,0,0"/>
-                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"/>
+                    <TextBox Style="{StaticResource RoundedTextBoxStyle}" 
+                 Text="{Binding CurrentUser.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Tag="Enter your name"/>
 
+                    <!-- Lastname (добавим в модель если нужно) -->
                     <TextBlock Text="Lastname" FontWeight="Bold" Margin="5,10,0,0"/>
-                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"/>
+                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"
+                 Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
+                 Tag="Optional"/>
 
+                    <!-- Email -->
                     <TextBlock Text="Email *" FontWeight="Bold" Margin="5,10,0,0"/>
-                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"/>
+                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"
+                 Text="{Binding CurrentUser.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Tag="your.email@example.com"/>
 
-                    <TextBlock Text="Phone *" FontWeight="Bold" Margin="5,10,0,0"/>
-                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"/>
+                    <!-- Phone (добавим в модель если нужно) -->
+                    <TextBlock Text="Phone" FontWeight="Bold" Margin="5,10,0,0"/>
+                    <TextBox Style="{StaticResource RoundedTextBoxStyle}"
+                 Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+                 Tag="+380XXXXXXXXX"/>
 
-                    <TextBlock Text="Password *" FontWeight="Bold" Margin="5,10,0,0"/>
-                    <PasswordBox Style="{StaticResource RoundedPasswordBoxStyle}"/>
+                    <!-- Password Change -->
+                    <TextBlock Text="Change Password" FontWeight="Bold" Margin="5,10,0,0"/>
+                    <PasswordBox x:Name="NewPasswordBox" 
+                     Style="{StaticResource RoundedPasswordBoxStyle}"
+                     Tag="New password"/>
 
-                    <Button Content="Save" Height="40" Background="Black" Foreground="White" FontSize="16" Margin="0,20,0,0" Style="{StaticResource RoundedButtonStyle}"/>
+                    <PasswordBox x:Name="ConfirmPasswordBox" 
+                     Style="{StaticResource RoundedPasswordBoxStyle}" Margin="0,5,0,0"
+                     Tag="Confirm password"/>
+
+                    <!-- Save Button -->
+                    <Button Content="Save Changes" 
+                Height="40" 
+                Background="#FFEB2EA8" 
+                Foreground="White" 
+                FontSize="16" 
+                FontWeight="Bold"
+                Margin="0,20,0,0" 
+                Style="{StaticResource RoundedButtonStyle}"
+                Command="{Binding SaveCommand}"/>
+
+                    <!-- Status Message -->
+                    <TextBlock x:Name="StatusMessage" 
+                   Margin="0,10,0,0"
+                   TextWrapping="Wrap"
+                   Visibility="Collapsed"/>
                 </StackPanel>
             </Border>
         </Grid>

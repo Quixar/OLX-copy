@@ -1,4 +1,5 @@
-﻿using OLX_copy.Services;
+﻿using OLX_copy.Data;
+using OLX_copy.Services;
 using OLX_copy.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,20 @@ namespace OLX_copy.Views
     public partial class UserMyAdsPage : Window
     {
         private readonly CurrentUserService _currentUserService;
+        private readonly DataContext _dataContext;
+
         public UserMyAdsPage(CurrentUserService currentUserService)
         {
             InitializeComponent();
             _currentUserService = currentUserService;
-            DataContext = new UserMyAdsViewModel(_currentUserService);
+            _dataContext = new DataContext(); // Создаем экземпляр DataContext
+            DataContext = new UserMyAdsViewModel(_currentUserService, _dataContext);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _dataContext.Dispose(); // Важно освободить ресурсы
+            base.OnClosed(e);
         }
     }
 }

@@ -20,9 +20,9 @@ namespace OLX_copy.ViewModels
         private readonly DataContext _context;
         private readonly CurrentUserService _currentUserService;
 
-        public UserMyAdsViewModel(CurrentUserService currentUserService)
+        public UserMyAdsViewModel(CurrentUserService currentUserService, DataContext context)
         {
-            _context = new DataContext();
+            _context = context;
             _currentUserService = currentUserService;
 
             DeleteProductCommand = new RelayCommand(DeleteProduct);
@@ -52,7 +52,7 @@ namespace OLX_copy.ViewModels
 
         private void OpenCustomization(object obj)
         {
-            var window = new UserCustomazationPage(_currentUserService);
+            var window = new UserCustomazationPage(_currentUserService, _context);
             window.Show();
 
             var loginWindow = Application.Current.Windows
