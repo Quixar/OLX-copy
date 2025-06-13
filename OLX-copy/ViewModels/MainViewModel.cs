@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace OLX_copy.ViewModels
@@ -36,6 +37,33 @@ namespace OLX_copy.ViewModels
         {
             var window = new UserHomePage(_currentUserService);
             window.Show();
+        }
+
+        private bool _areSearchResultsVisible;
+
+        public bool AreSearchResultsVisible
+        {
+            get => _areSearchResultsVisible;
+            set
+            {
+                if (_areSearchResultsVisible != value)
+                {
+                    _areSearchResultsVisible = value;
+                    OnPropertyChanged(nameof(AreSearchResultsVisible));
+                }
+            }
+        }
+
+        private List<Product> _searchResults;
+        public List<Product> SearchResults
+        {
+            get => _searchResults;
+            set
+            {
+                _searchResults = value;
+                OnPropertyChanged(nameof(SearchResults));
+                OnPropertyChanged(nameof(AreSearchResultsVisible));
+            }
         }
 
         private List<Product> _latestProducts;
@@ -78,7 +106,7 @@ namespace OLX_copy.ViewModels
 
             if (string.IsNullOrWhiteSpace(query))
             {
-                LoadLatestProducts();
+                SearchResults = null;
                 return;
             }
 
@@ -90,9 +118,11 @@ namespace OLX_copy.ViewModels
                     p.Description.ToLower().Contains(query) ||
                     p.ProductGroup.Name.ToLower().Contains(query))
                 .OrderByDescending(p => p.CreatedAt)
+                .Take(10)
                 .ToList();
 
-            LatestProducts = results;
+            SearchResults = results;
+            AreSearchResultsVisible = SearchResults.Any();
         }
 
         protected void OnPropertyChanged(string name) =>

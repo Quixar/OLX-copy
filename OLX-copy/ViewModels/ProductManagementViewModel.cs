@@ -33,6 +33,9 @@ public class ProductManagementViewModel : INotifyPropertyChanged
     public string NewProductName { get => _newProductName; set { _newProductName = value; OnPropertyChanged(nameof(NewProductName)); } }
     private string _newProductName;
 
+    public string NewProductStock {  get => _newProductStock; set { _newProductStock = value; OnPropertyChanged(nameof(NewProductStock)); } }
+    private string _newProductStock;
+
     public string NewProductDescription { get => _newProductDescription; set { _newProductDescription = value; OnPropertyChanged(nameof(NewProductDescription)); } }
     private string _newProductDescription;
 
@@ -99,6 +102,12 @@ public class ProductManagementViewModel : INotifyPropertyChanged
             return;
         }
 
+        if (!int.TryParse(NewProductStock, out int stock))
+        {
+            MessageBox.Show("Некоректна кiлькiсть.");
+            return;
+        }
+
         if (SelectedGroup == null)
         {
             MessageBox.Show("Виберіть групу.");
@@ -120,8 +129,8 @@ public class ProductManagementViewModel : INotifyPropertyChanged
             Price = price,
             UserId = _currentUserService.CurrentUser.Id,
             Slug = Guid.NewGuid().ToString(),
-            Stock = 1
-        };
+            Stock = stock
+        }; 
 
         _context.Products.Add(product);
 

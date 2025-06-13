@@ -1,4 +1,5 @@
 ﻿using OLX_copy.Services;
+using OLX_copy.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace OLX_copy.Views
         public UserCustomazationPage(CurrentUserService currentUserService)
         {
             _currentUserService = currentUserService;
+            DataContext = new UserCustomizationViewModel(_currentUserService);
             InitializeComponent();
         }
     }

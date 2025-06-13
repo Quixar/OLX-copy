@@ -5,6 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         Title="OLX Copy" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Window.Resources>
     <DockPanel LastChildFill="True">
 
         <!-- Подвал -->
@@ -33,29 +36,48 @@
             <StackPanel>
 
                 <!-- Верхний логотип и поиск -->
-                <DockPanel Background="Black" Height="60" VerticalAlignment="Top" Margin="0,0,0,10">
-                    <TextBlock Text="OLX Courses"
-                               Foreground="White"
-                               FontWeight="Bold"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="15,0"/>
+                <DockPanel Background="Black" Height="Auto" VerticalAlignment="Top" Margin="0,0,0,10">
+                    <StackPanel Orientation="Vertical" Margin="15,10,15,10">
 
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                        <TextBox Width="300"
-                             Height="28"
-                             VerticalAlignment="Center"
-                             Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
-                             Foreground="Black"
-                             Background="White"
-                             Margin="0,0,10,0"
-                             />
+                        <!-- Заголовок -->
+                        <TextBlock Text="OLX Courses"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   FontSize="20"
+                                   Margin="0,0,0,10"/>
 
-                        <Button Content="🔍 Пошук" 
-                            Command="{Binding SearchCommand}"
-                            Height="28"
-                            Background="#3399FF"
-                            Foreground="White"/>
+                        <!-- Поисковая строка + результат -->
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="300"
+                                         Height="28"
+                                         Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                                         Foreground="Black"
+                                         Background="White"
+                                         Margin="0,0,10,0"/>
+
+                                <Button Content="🔍 Пошук" 
+                                        Command="{Binding SearchCommand}"
+                                        Height="28"
+                                        Background="#3399FF"
+                                        Foreground="White"/>
+                            </StackPanel>
+
+                            <!-- Результаты поиска под полем -->
+
+                            <ListBox x:Name="SearchResultsListBox"
+                                     ItemsSource="{Binding SearchResults}"
+                                     DisplayMemberPath="Name"
+                                     Visibility="{Binding AreSearchResultsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                     Background="White"
+                                     Margin="20,5,0,0"
+                                     Width="410"
+                                     MaxHeight="200"
+                                     BorderBrush="Gray"
+                                     BorderThickness="1"
+                                     HorizontalAlignment="Left"
+                                     LostFocus="SearchElement_LostFocus" />
+                        </StackPanel>
                     </StackPanel>
                 </DockPanel>
 
