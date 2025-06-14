@@ -65,9 +65,9 @@
 
         <!-- Main Menu -->
         <Menu DockPanel.Dock="Top" Background="#222" Foreground="White">
-            <MenuItem Header="🏠 Главная" Padding="10,5"/>
+            <MenuItem Header="🏠 Главная" Padding="10,5" Command="{Binding OpenMainCommand}"/>
             <MenuItem Header="📦 Категории" Padding="10,5"/>
-            <MenuItem Header="👤 Профиль" Padding="10,5"/>
+            <MenuItem Header="👤 Профиль" Padding="10,5" Command="{Binding OpenHomePageCommand}"/>
             <MenuItem Header="❤️ Избранное" Padding="10,5"/>
             <MenuItem Header="🛒 Корзина" Padding="10,5"/>
             <MenuItem Header="🔐 Войти / Регистрация" Padding="10,5"/>
@@ -117,6 +117,7 @@
                             <!-- Карусель превью -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="⟨" Style="{StaticResource CarouselButtonStyle}" />
+
                                 <ItemsControl ItemsSource="{Binding Images}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -125,10 +126,16 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding}" Height="40" Width="40" Margin="2"/>
+                                            <Button Command="{Binding DataContext.SelectImageCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    CommandParameter="{Binding}"
+                                                    BorderThickness="2"
+                                                    Margin="2">
+                                                <Image Source="{Binding}" Height="40" Width="40"/>
+                                            </Button>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+
                                 <Button Content="⟩" Style="{StaticResource CarouselButtonStyle}" />
                             </StackPanel>
                         </StackPanel>
@@ -140,14 +147,12 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                 <TextBlock Text="Quantity:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                <ComboBox Width="60">
-                                    <ComboBoxItem Content="1" IsSelected="True"/>
-                                    <ComboBoxItem Content="2"/>
-                                    <ComboBoxItem Content="3"/>
-                                </ComboBox>
+                                <ComboBox Width="60"
+                                          ItemsSource="{Binding AvailableQuantities}"
+                                          SelectedItem="{Binding Quantity, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <Button Height="30" Content="BUY NOW" Style="{StaticResource RoundedButton}" Margin="0,10,0,0"/>
+                            <Button Height="30" Command="{Binding BuyCommand}" Content="{Binding ButtonText}" Style="{StaticResource RoundedButton}" Margin="0,10,0,0"/>
                         </StackPanel>
                     </Grid>
 
