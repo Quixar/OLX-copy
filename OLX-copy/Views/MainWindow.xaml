@@ -131,6 +131,9 @@
                                             <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,5,0,0"/>
                                             <TextBlock Text="{Binding ProductGroup.Name}" FontSize="12" Foreground="Gray"/>
                                             <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₴}" FontWeight="Bold" Margin="5,0"/>
+                                            <Button Content="Купити" Background="#3399FF" Foreground="White" Margin="0,5"
+                                                Command="{Binding DataContext.OpenProductCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}" />
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>

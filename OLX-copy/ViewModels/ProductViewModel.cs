@@ -28,7 +28,27 @@ namespace OLX_copy.ViewModels
 
         public string MainImageUrl
         {
-            get => _selectedImageUrl ?? Images.FirstOrDefault() ?? string.Empty;
+            get
+            {
+                if (!string.IsNullOrEmpty(_selectedImageUrl))
+                {
+                    string absolutePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", _selectedImageUrl));
+
+                    return new Uri(absolutePath).AbsoluteUri;
+                }
+                else if (Images.Any())
+                {
+                    var firstImage = Images.First();
+
+                    string absolutePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", firstImage));
+
+                    return new Uri(absolutePath).AbsoluteUri;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
             set
             {
                 if (_selectedImageUrl != value)
@@ -60,8 +80,8 @@ namespace OLX_copy.ViewModels
             Price = product?.Price ?? 0m;
             Description = product?.Description ?? "No description";
 
-            Images = product?.Images
-                .Select(img => img.ImageUrl)
+            Images = product.Images?
+                .Select(ii => ii.ImageUrl)
                 .Where(url => !string.IsNullOrEmpty(url))
                 .ToList() ?? new List<string>();
 

@@ -45,7 +45,7 @@ namespace OLX_copy.Data.Entities
 
                 string absolutePath = System.IO.Path.Combine(projectRoot, relativePath);
 
-                return absolutePath;
+                return new Uri(absolutePath).AbsoluteUri;
             }
         }
     }
